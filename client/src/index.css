@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+body{ 
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.nav-item{
+    @apply mx-4 cursor-pointer;
+}
+
+@layer base{
+    body {
+        @apply text-text bg-background;
+    }
+}
+
+@theme {
+    --color-primary: #2563eb;
+    --color-secondary: #7c3aed;
+    --color-background: #040410;   
+    --color-surface: #ffffff;
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+    --color-text: #fff;
+    --color-muted: #6b7280;
+    --color-border: #e5e7eb; 
+    --radius-card: 1rem;
+    --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.4);
+    
+}
