@@ -1,24 +1,43 @@
+import { NavLink } from "react-router";
 import logo from "../assets/logo.svg";
 
 const Navbar = () => {
   return (
-    <nav className="h-18 flex flex-row items-center justify-between px-20">
-      {/* Header */}
-      <header className="flex flex-row items-center">
+    <nav className="sticky top-0 z-50 shadow-sm h-18 flex items-center justify-between px-20">
+      <header className="flex items-center">
         <img src={logo} alt="Logo" className="h-10 w-10" />
-        <h2 className="pt-1 ps-2 text-xl">BrewCafe</h2>
+        <h2 className="ml-2 text-xl font-bold">BrewCafe</h2>
       </header>
 
-      {/* Nav Items */}
-      <ul className="flex flex-row">
-        <li className="nav-item">Home</li>
-        <li className="nav-item">Menu</li>
-        <li className="nav-item">Track Order</li>
-        <li className="nav-item">About</li>
+      <ul className="flex items-center gap-6">
+        <li>
+          <NavLink to="/" className="nav-item">
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/menu" className="nav-item">
+            Browse Menu
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/offers" className="nav-item">
+            Special Offers
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/restaurants" className="nav-item">
+            Restaurants
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/track-order" className="nav-item">
+            Track Order
+          </NavLink>
+        </li>
       </ul>
 
-      {/* Button */}
-      <button className="bg-[#efb848] rounded cursor-pointer px-4 py-2 text-gray-950 font-bold">
+      <button className="bg-[#efb848] px-4 py-2 rounded font-semibold text-gray-900 hover:opacity-90">
         Login
       </button>
     </nav>
