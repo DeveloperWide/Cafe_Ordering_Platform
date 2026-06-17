@@ -1,0 +1,23 @@
+<ProductCard
+            imageUrl="https://i.pinimg.com/1200x/81/92/7e/81927ee1cf8fcd7715530b0856cf553d.jpg"
+            title="Cappuccino"
+            price="₹199"
+          />
+
+          <ProductCard
+            imageUrl="https://i.pinimg.com/736x/48/cb/47/48cb47cdcb1d05e48c45d79ff749238d.jpg"
+            title="Veg Sandwich"
+            price="₹149"
+          />
+
+          <ProductCard
+            imageUrl="https://i.pinimg.com/736x/c9/ea/6b/c9ea6b9fad91868df056d0124ea32b6a.jpg"
+            title="Chocolate Cake"
+            price="₹179"
+          />
+
+          <ProductCard
+            imageUrl="https://i.pinimg.com/736x/20/29/ef/2029ef7a62e7b477632b27c2db403bb8.jpg"
+            title="Cold Coffee"
+            price="₹199"
+          />
