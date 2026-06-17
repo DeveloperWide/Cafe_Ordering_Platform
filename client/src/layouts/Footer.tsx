@@ -52,19 +52,35 @@ const Footer = () => {
 
             <div className="flex gap-2 flex-wrap">
               <Link to="http://instagram.com/mahesh.codes">
-                <IconBrandInstagram size={36} stroke={1} />
+                <IconBrandInstagram
+                  size={36}
+                  stroke={1}
+                  className="hover:text-blue-700"
+                />
               </Link>
 
               <Link to="#">
-                <IconBrandFacebook size={36} stroke={1} />
+                <IconBrandFacebook
+                  size={36}
+                  stroke={1}
+                  className="hover:text-blue-700"
+                />
               </Link>
 
               <Link to="https://www.linkedin.com/in/codebymahesh/">
-                <IconBrandLinkedin size={36} stroke={1} />
+                <IconBrandLinkedin
+                  size={36}
+                  stroke={1}
+                  className="hover:text-blue-700"
+                />
               </Link>
 
               <Link to="https://x.com/mr7_code">
-                <IconBrandX size={36} stroke={1} />
+                <IconBrandX
+                  size={36}
+                  stroke={1}
+                  className="hover:text-blue-700"
+                />
               </Link>
             </div>
           </section>
