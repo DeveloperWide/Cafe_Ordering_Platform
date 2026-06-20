@@ -18,6 +18,13 @@ const tabs = [
   { id: "support", label: "Help & Support" },
 ];
 
+const stats = [
+  { count: "546+", title: "Registered Riders" },
+  { count: "789,900+", title: "Orders Delivered" },
+  { count: "690+", title: "Restaurants Partners" },
+  { count: "17,457+", title: "Food Items" },
+];
+
 const Main = () => {
   const [activeTab, setActiveTabs] = useState<string>("faq");
 
@@ -83,7 +90,7 @@ const Main = () => {
           <h2 className="text-2xl font-bold text-text py-3">
             BrewCafe Popular Categories ☕
           </h2>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 mx-3 my-2">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 mx-3 my-2">
             <CategoryCard
               title="Espresso-Based Coffees"
               backgroundImage="https://i.pinimg.com/1200x/e8/8c/96/e88c963b93c4ee2f3481b3576e2c9395.jpg"
@@ -161,8 +168,8 @@ const Main = () => {
           />
         </section>
         <section>
-          <div className="flex justify-between px-3 py-2">
-            <h2 className="font-semibold text-2xl">Know More About us!</h2>
+          <div className="px-3 py-2 grid grid-cols-1 md:grid-cols-2">
+            <h2 className="font-semibold text-2xl my-3">Know More About us!</h2>
             <ul className="flex justify-between px-2 gap-3">
               {tabs.map((obj) => {
                 return (
@@ -182,6 +189,23 @@ const Main = () => {
             {activeTab === "who" && <WhoWeAre />}
             {activeTab === "partner" && <PartnerProgram />}
             {activeTab === "support" && <HelpSupport />}
+          </div>
+        </section>
+        <section>
+          <div className="proof_card grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 rounded-2xl overflow-hidden">
+            {stats.map((item, index) => (
+              <div
+                key={index}
+                className={`p-6 transition-all duration-300 ease-in-out hover:cursor-pointer ${
+                  index % 2 === 0
+                    ? "bg-gray-900/30 text-white hover:bg-gray-900/70 "
+                    : "bg-white/80 text-gray-900 hover:bg-white"
+                }`}
+              >
+                <h2 className="count">{item.count}</h2>
+                <p className="title">{item.title}</p>
+              </div>
+            ))}
           </div>
         </section>
       </main>

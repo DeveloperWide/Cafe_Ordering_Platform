@@ -9,6 +9,14 @@ body {
   @apply px-3 py-2 text-white font-medium transition-colors cursor-pointer duration-200 hover:text-[#efb848];
 }
 
+.proof_card div {
+  @apply flex justify-center flex-col items-center mx-5 my-10 rounded-2xl;
+}
+
+.proof_card .count {
+  @apply text-3xl font-bold;
+}
+
 @layer base {
   body {
     @apply text-text bg-background;
