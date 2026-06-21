@@ -1,29 +1,20 @@
 import { MoveRight } from "lucide-react";
 import heroImage from "../assets/hero.png";
-import CafeCard from "../components/cards/CafeCard";
+import {
+  CafeCard,
+  CategoryCard,
+  PartnerWithUs,
+} from "../components/cards/index.ts";
 import DownloadAppImage from "../assets/downloadApp.png";
 import DownloadAppLogo from "../assets/DownloadAppImage.png";
-import CategoryCard from "../components/cards/CategoryCard";
-import PartnerWithUs from "../components/cards/PartnerWithUs";
 import { useState } from "react";
-import FAQ from "../components/tabs/FAQ";
-import WhoWeAre from "../components/tabs/WhoWeAre";
-import PartnerProgram from "../components/tabs/PartnerProgram";
-import HelpSupport from "../components/tabs/HelpSupport";
-
-const tabs = [
-  { id: "faq", label: "FAQ" },
-  { id: "who", label: "Who We Are" },
-  { id: "partner", label: "Partner Program" },
-  { id: "support", label: "Help & Support" },
-];
-
-const stats = [
-  { count: "546+", title: "Registered Riders" },
-  { count: "789,900+", title: "Orders Delivered" },
-  { count: "690+", title: "Restaurants Partners" },
-  { count: "17,457+", title: "Food Items" },
-];
+import {
+  FAQ,
+  WhoWeAre,
+  PartnerProgram,
+  HelpSupport,
+} from "../components/tabs/index.ts";
+import { cafes, categories, stats, tabs } from "../data/Main";
 
 const Main = () => {
   const [activeTab, setActiveTabs] = useState<string>("faq");
@@ -69,21 +60,15 @@ const Main = () => {
           </h2>
           <div className="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10 my-3 mx-2">
             {/* Cafe Cards */}
-            <CafeCard
-              backgroundImage="https://i.pinimg.com/1200x/9e/56/0c/9e560cdb73ae2abfd80577e093f8335b.jpg"
-              title="AMA Cafe | Rajpur Road"
-              discount={40}
-            />
-            <CafeCard
-              backgroundImage="https://i.pinimg.com/1200x/f4/b4/68/f4b468c720a97521602be6095de1abec.jpg"
-              title="Farzi Café Dehradun"
-              discount={20}
-            />
-            <CafeCard
-              backgroundImage="https://i.pinimg.com/736x/6f/e1/11/6fe111d94ca6ab10e81c9bd96328a82d.jpg"
-              title="Café De Piccolo"
-              discount={17}
-            />
+            {cafes.map((cafe) => {
+              return (
+                <CafeCard
+                  backgroundImage={`${cafe.backgroundImage}`}
+                  title={`${cafe.title}`}
+                  discount={cafe.discount}
+                />
+              );
+            })}
           </div>
         </section>
         <section className="my-3">
@@ -91,26 +76,14 @@ const Main = () => {
             BrewCafe Popular Categories ☕
           </h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 mx-3 my-2">
-            <CategoryCard
-              title="Espresso-Based Coffees"
-              backgroundImage="https://i.pinimg.com/1200x/e8/8c/96/e88c963b93c4ee2f3481b3576e2c9395.jpg"
-            />
-            <CategoryCard
-              title="Brewed Coffees"
-              backgroundImage="https://i.pinimg.com/736x/f0/65/5f/f0655f2737da76be9b4ac435c65e3d9b.jpg"
-            />
-            <CategoryCard
-              title="Cold Coffees"
-              backgroundImage="https://i.pinimg.com/1200x/40/67/01/4067010339fb0ee75c9631551f30576a.jpg"
-            />
-            <CategoryCard
-              title="Specialty & Flavored"
-              backgroundImage="https://i.pinimg.com/736x/c4/73/7e/c4737e013a673e196416210867f9b1f8.jpg"
-            />
-            <CategoryCard
-              title="Milk-Based & Alternative"
-              backgroundImage="https://i.pinimg.com/1200x/b1/8d/50/b18d50fa62686644792732a3f609275f.jpg"
-            />
+            {categories.map((category) => {
+              return (
+                <CategoryCard
+                  title={category.title}
+                  backgroundImage={category.backgroundImage}
+                />
+              );
+            })}
           </div>
         </section>
         <section className="w-full flex justify-center py-16 px-4">

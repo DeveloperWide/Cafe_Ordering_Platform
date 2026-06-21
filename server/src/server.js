@@ -9,14 +9,16 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use(cookieParser());
-app.use(cors({
-    origin: "http://localhost:5173/"
-}));
+app.use(
+  cors({
+    origin: "http://localhost:5173/",
+  }),
+);
 
 app.get("/", (req, res) => {
-    res.send("Hello World");
-})
+  res.send("Hello World");
+});
 
 app.listen(PORT, () => {
-  console.log(`Server is listening on PORT ${PORT}`)
-})
+  console.log(`Server is listening on PORT ${PORT}`);
+});
