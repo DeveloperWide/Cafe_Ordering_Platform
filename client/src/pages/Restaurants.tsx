@@ -1,8 +1,84 @@
 import pizzaImage from "../assets/pizza.jpg";
 import { IconInvoice, IconTruckDelivery } from "@tabler/icons-react";
-import { Clock } from "lucide-react";
+import { Clock, Search } from "lucide-react";
+import { useState } from "react";
+import Offers from "../components/menu/Offers";
+import Burgers from "../components/menu/Burgers";
+import Fries from "../components/menu/Fries";
+import Snacks from "../components/menu/Snacks";
+import Salads from "../components/menu/Salads";
+import ColdDrinks from "../components/menu/ColdDrinks";
+import HappyMeal from "../components/menu/HappyMeal";
+import Desserts from "../components/menu/Desserts";
+import HotDrinks from "../components/menu/HotDrinks";
+import Sauces from "../components/menu/Sauces";
+import Orbit from "../components/menu/Orbit";
+
+const menu = [
+  {
+    id: "offers",
+    component: Offers,
+    item: "Offers",
+  },
+  {
+    id: "burgers",
+    component: Burgers,
+    item: "Burgers",
+  },
+  {
+    id: "fries",
+    component: Fries,
+    item: "Fries",
+  },
+  {
+    id: "snacks",
+    component: Snacks,
+    item: "Snacks",
+  },
+  {
+    id: "salads",
+    component: Salads,
+    item: "Salads",
+  },
+  {
+    id: "cold-drinks",
+    component: ColdDrinks,
+    item: "Cold Drinks",
+  },
+  {
+    id: "happy-meal",
+    component: HappyMeal,
+    item: "Happy Meal",
+  },
+  {
+    id: "desserts",
+    component: Desserts,
+    item: "Desserts",
+  },
+  {
+    id: "hot-drinks",
+    component: HotDrinks,
+    item: "Hot Drinks",
+  },
+  {
+    id: "sauces",
+    component: Sauces,
+    item: "Sauces",
+  },
+  {
+    id: "orbit",
+    component: Orbit,
+    item: "Orbit",
+  },
+];
 
 const Restaurants = () => {
+  const [activeItem, setActiveItem] = useState<string>("offers");
+
+  const activeMenu = menu.find((item) => item.id === activeItem);
+
+  const ActiveComponent = activeMenu?.component;
+
   return (
     <div className="flex flex-col justify-center items-center">
       <header className="relative w-[98%] max-w-310 h-120 mx-auto rounded-2xl rounded-bl-none  border border-white/50 my-5 mb-8">
@@ -67,6 +143,49 @@ const Restaurants = () => {
           </div>
         </div>
       </header>
+      <main className="w-full">
+        <section className="w-full">
+          <div className="flex flex-row justify-between mx-4 my-3 flex-wrap">
+            <h2 className="text-2xl font-bold">All Offers from BrewCafe</h2>
+
+            <div className="relative">
+              <Search
+                size={18}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50"
+              />
+
+              <input
+                type="text"
+                placeholder="Search from menu..."
+                className="w-full border border-white/50 rounded-full py-2 pl-10 pr-4 outline-none"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div className="menu flex flex-wrap justify-around gap-5 px-3 py-4 bg-gray-900/70">
+            {menu.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveItem(item.id)}
+                className={`px-4 py-1.5 rounded-full font-semibold transition-all duration-300
+          ${
+            item.id === activeItem
+              ? "bg-white text-gray-900 shadow-md"
+              : "text-white/80 hover:text-white"
+          }`}
+              >
+                {item.item}
+              </button>
+            ))}
+          </div>
+
+          <div className="items mt-6">
+            {ActiveComponent && <ActiveComponent />}
+          </div>
+        </section>
+      </main>
     </div>
   );
 };
