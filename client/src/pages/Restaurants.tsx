@@ -6,13 +6,8 @@ import Offers from "../components/menu/Offers";
 import Burgers from "../components/menu/Burgers";
 import Fries from "../components/menu/Fries";
 import Snacks from "../components/menu/Snacks";
-import Salads from "../components/menu/Salads";
 import ColdDrinks from "../components/menu/ColdDrinks";
-import HappyMeal from "../components/menu/HappyMeal";
 import Desserts from "../components/menu/Desserts";
-import HotDrinks from "../components/menu/HotDrinks";
-import Sauces from "../components/menu/Sauces";
-import Orbit from "../components/menu/Orbit";
 
 const menu = [
   {
@@ -36,39 +31,14 @@ const menu = [
     item: "Snacks",
   },
   {
-    id: "salads",
-    component: Salads,
-    item: "Salads",
-  },
-  {
     id: "cold-drinks",
     component: ColdDrinks,
     item: "Cold Drinks",
   },
   {
-    id: "happy-meal",
-    component: HappyMeal,
-    item: "Happy Meal",
-  },
-  {
     id: "desserts",
     component: Desserts,
     item: "Desserts",
-  },
-  {
-    id: "hot-drinks",
-    component: HotDrinks,
-    item: "Hot Drinks",
-  },
-  {
-    id: "sauces",
-    component: Sauces,
-    item: "Sauces",
-  },
-  {
-    id: "orbit",
-    component: Orbit,
-    item: "Orbit",
   },
 ];
 
@@ -164,21 +134,23 @@ const Restaurants = () => {
         </section>
 
         <section>
-          <div className="menu flex flex-wrap justify-around gap-5 px-3 py-4 bg-gray-900/70">
-            {menu.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setActiveItem(item.id)}
-                className={`px-4 py-1.5 rounded-full font-semibold transition-all duration-300
+          <div className="md:flex md:flex-row md:justify-center">
+            <div className="menu flex flex-wrap justify-around md:max-w-3xl md:justify-center md:rounded-3xl md:gap-x-4  gap-5 px-3 py-4 bg-gray-900/70">
+              {menu.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveItem(item.id)}
+                  className={`px-4 py-1.5 rounded-full transition-all duration-300
           ${
             item.id === activeItem
-              ? "bg-white text-gray-900 shadow-md"
+              ? "bg-white font-semibold text-gray-900 shadow-md"
               : "text-white/80 hover:text-white"
           }`}
-              >
-                {item.item}
-              </button>
-            ))}
+                >
+                  {item.item}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="items mt-6">

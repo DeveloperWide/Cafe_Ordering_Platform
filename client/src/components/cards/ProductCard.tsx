@@ -1,31 +1,57 @@
+import { Plus } from "lucide-react";
+
 interface ProductCardProps {
   imageUrl: string;
   title: string;
-  price: string;
+  description: string;
+  price: number;
 }
 
-const ProductCard = ({ imageUrl, title, price }: ProductCardProps) => {
+const ProductCard = ({
+  imageUrl,
+  title,
+  description,
+  price,
+}: ProductCardProps) => {
   return (
-    <div className="w-45 h-auto rounded-xl flex flex-col bg-gray-900/70">
+    <div className="group flex justify-between gap-4 bg-gray-900/70 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300">
+      {/* Content */}
+      <div className="flex flex-col flex-1">
+        <h3 className="text-lg font-bold text-white line-clamp-2">{title}</h3>
+
+        <p className="mt-2 text-sm text-gray-500 line-clamp-3">{description}</p>
+
+        <p className="mt-auto pt-4 text-lg font-bold text-white/90">₹{price}</p>
+      </div>
+
       {/* Image */}
-      <img
-        src={imageUrl}
-        alt="Thumbnail Image"
-        style={{
-          height: "135px",
-          backgroundPosition: "center",
-          objectFit: "cover",
-          objectPosition: "center",
-        }}
-        className="rounded-t-xl rounded-b w-full"
-      />
-      {/* Title */}
-      <h3 className="pt-2 font-semibold ps-3">{title}</h3>
-      {/* Price and Add Button */}
-      <div className="bottom flex justify-between items-center px-3 mb-2">
-        <p>{price}</p>
-        <button className="py-1 px-2.5 bg-gray-600/25 rounded text-secondary font-semibold hover:cursor-pointer">
-          Add
+      <div className="relative">
+        <img
+          src={imageUrl}
+          alt={title}
+          className="w-36 h-28 object-cover rounded-xl"
+        />
+
+        <button
+          className="
+            absolute
+            -bottom-3
+            -right-3
+            h-10
+            w-10
+            rounded-full
+            bg-white
+            text-black
+            flex
+            items-center
+            justify-center
+            shadow-lg
+            hover:scale-110
+            transition
+            cursor-pointer
+          "
+        >
+          <Plus size={22} />
         </button>
       </div>
     </div>

@@ -28,11 +28,6 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/offers" className="nav-item">
-              Special Offers
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/restaurants" className="nav-item">
               Restaurants
             </NavLink>
