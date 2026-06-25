@@ -1,46 +1,8 @@
 import pizzaImage from "../assets/pizza.jpg";
 import { IconInvoice, IconTruckDelivery } from "@tabler/icons-react";
-import { Clock, Search } from "lucide-react";
+import { Clock, Clock3, MapPinIcon, PhoneCall } from "lucide-react";
 import { useState } from "react";
-import Offers from "../components/menu/Offers";
-import Burgers from "../components/menu/Burgers";
-import Fries from "../components/menu/Fries";
-import Snacks from "../components/menu/Snacks";
-import ColdDrinks from "../components/menu/ColdDrinks";
-import Desserts from "../components/menu/Desserts";
-
-const menu = [
-  {
-    id: "offers",
-    component: Offers,
-    item: "Offers",
-  },
-  {
-    id: "burgers",
-    component: Burgers,
-    item: "Burgers",
-  },
-  {
-    id: "fries",
-    component: Fries,
-    item: "Fries",
-  },
-  {
-    id: "snacks",
-    component: Snacks,
-    item: "Snacks",
-  },
-  {
-    id: "cold-drinks",
-    component: ColdDrinks,
-    item: "Cold Drinks",
-  },
-  {
-    id: "desserts",
-    component: Desserts,
-    item: "Desserts",
-  },
-];
+import { menu, timings } from "../data/Restaurant";
 
 const Restaurants = () => {
   const [activeItem, setActiveItem] = useState<string>("offers");
@@ -114,25 +76,6 @@ const Restaurants = () => {
         </div>
       </header>
       <main className="w-full">
-        <section className="w-full">
-          <div className="flex flex-row justify-between mx-4 my-3 flex-wrap">
-            <h2 className="text-2xl font-bold">All Offers from BrewCafe</h2>
-
-            <div className="relative">
-              <Search
-                size={18}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50"
-              />
-
-              <input
-                type="text"
-                placeholder="Search from menu..."
-                className="w-full border border-white/50 rounded-full py-2 pl-10 pr-4 outline-none"
-              />
-            </div>
-          </div>
-        </section>
-
         <section>
           <div className="md:flex md:flex-row md:justify-center">
             <div className="menu flex flex-wrap justify-around md:max-w-3xl md:justify-center md:rounded-3xl md:gap-x-4  gap-5 px-3 py-4 bg-gray-900/70">
@@ -155,6 +98,88 @@ const Restaurants = () => {
 
           <div className="items mt-6">
             {ActiveComponent && <ActiveComponent />}
+          </div>
+        </section>
+        <div className="w-full my-10 flex flex-col justify-center items-center">
+          <hr className="w-full border border-white/15 rounded-full max-w-4xl" />
+        </div>
+        <section className="my-12 mx-10 overflow-hidden rounded-3xl shadow-xl bg-gray-900/70">
+          <div className="grid grid-cols-1 lg:grid-cols-3">
+            {/* Delivery */}
+            <div className="p-8">
+              <h2 className="flex items-center gap-3 text-2xl font-bold text-white">
+                <MapPinIcon className="text-secondary" />
+                Delivery Information
+              </h2>
+
+              <div className="mt-6 space-y-3 text-white">
+                {timings.map((timing) => (
+                  <p key={timing.id}>
+                    <span className="font-semibold">{timing.day}</span>{" "}
+                    {timing.time}
+                  </p>
+                ))}
+
+                <p className="pt-4">
+                  <span className="font-semibold">Estimated Delivery:</span>{" "}
+                  20-25 Minutes
+                </p>
+              </div>
+            </div>
+
+            {/* Contact */}
+            <div className="border-y lg:border-y-0 lg:border-x border-white/15 p-8">
+              <h2 className="flex items-center gap-3 text-2xl font-bold text-white">
+                <PhoneCall className="text-secondary" />
+                Contact Information
+              </h2>
+
+              <div className="mt-6 space-y-4 text-white">
+                <p>
+                  For allergies or dietary requirements, please contact BrewCafe
+                  before placing your order.
+                </p>
+
+                <div>
+                  <p className="font-semibold">Phone Number</p>
+
+                  <a
+                    href="tel:+919876543210"
+                    className="text-secondary hover:underline"
+                  >
+                    +91 98765 43210
+                  </a>
+                </div>
+
+                <div>
+                  <p className="font-semibold">Website</p>
+
+                  <a
+                    href="https://brewcafe.com"
+                    className="text-secondary hover:underline"
+                  >
+                    www.brewcafe.com
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Timing */}
+            <div className="bg-gray-950 text-white p-8">
+              <h2 className="flex items-center gap-3 text-2xl font-bold">
+                <Clock3 className="text-secondary" />
+                Operational Hours
+              </h2>
+
+              <div className="mt-6 space-y-3">
+                {timings.map((timing) => (
+                  <p key={timing.id}>
+                    <span className="font-semibold">{timing.day}</span>{" "}
+                    {timing.time}
+                  </p>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       </main>
