@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { Menu, X } from "lucide-react";
 import logo from "../assets/logo.svg";
 
@@ -40,9 +40,12 @@ const Navbar = () => {
         </ul>
 
         {/* Desktop Button */}
-        <button className="hidden lg:block bg-[#efb848] px-4 py-2 rounded font-semibold text-gray-900 hover:opacity-90">
+        <Link
+          to="/auth/login"
+          className="hidden lg:block bg-[#efb848] px-4 py-2 rounded font-semibold text-gray-900 hover:opacity-90"
+        >
           Login
-        </button>
+        </Link>
 
         {/* Mobile Menu Button */}
         <button className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
