@@ -48,9 +48,13 @@ const Navbar = () => {
         </Link>
 
         {/* Mobile Menu Button */}
-        <button className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
+        <Link
+          to="/auth/login"
+          className="lg:hidden"
+          onClick={() => setIsOpen(!isOpen)}
+        >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        </Link>
       </div>
 
       {/* Mobile Menu */}
