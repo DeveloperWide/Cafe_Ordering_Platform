@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { LoginReqBody, SignupReqBody } from "../types/user.types";
 import User from "../models/user.model";
 import { valitadeReqBody } from "../services/auth.services";
-import bcrypt from "bcrypt";
 
 export const signup = async (
   req: Request<{}, {}, SignupReqBody>,
@@ -34,19 +33,18 @@ export const login = async (
 
   valitadeReqBody({ type: "Login", reqBody: req.body, res });
 
-  const exists = await User.findOne({ email });
+  const user = await User.findOne({ email });
 
-  if (!exists) return res.status(404).json({ message: "User Not found" });
-  const salt = await bcrypt.genSalt(12);
-  const hash = await bcrypt.hash(password, salt);
+  if (!user) return res.status(404).json({ message: "User Not found" });
+  const isMatch = await user.comparePassword(password);
 
-  if (await bcrypt.compare(password, exists.password)) {
-    return res.status(200).json({
-      message: "User Logged in Successfully",
-    });
-  } else {
+  if (!isMatch) {
     return res.status(400).json({
       message: "Wrong Credentials",
     });
   }
+
+  return res.status(200).json({
+    message: "User Logged in Successfully",
+  });
 };

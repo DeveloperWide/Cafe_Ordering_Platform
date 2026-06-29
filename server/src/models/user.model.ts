@@ -1,7 +1,8 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
+import { IUser } from "../types/user.types";
 
-const userSchema = new Schema(
+const userSchema = new Schema<IUser>(
   {
     name: {
       type: String,
@@ -19,8 +20,6 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      minLength: 6,
-      maxLength: 30,
       required: true,
     },
   },
@@ -33,6 +32,12 @@ userSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, 12);
 });
 
-const User = model("User", userSchema);
+userSchema.methods.comparePassword = async function (
+  entered: string,
+): Promise<boolean> {
+  return await bcrypt.compare(entered, this.password);
+};
+
+const User = model<IUser>("User", userSchema);
 
 export default User;
