@@ -12,7 +12,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/auth/", authRoutes);
-app.use("/api/product", productRoutes);
+app.use("/api/product/", productRoutes);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
