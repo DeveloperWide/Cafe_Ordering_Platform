@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Product from "../models/product.model";
 import { createProductReqBody } from "../types/product.types";
 import { validateProductReqBody } from "../services/product.services";
+import { Rewind } from "lucide-react";
 
 export const getProducts = async (req: Request, res: Response) => {
   const products = await Product.find();
@@ -12,29 +13,28 @@ export const getProducts = async (req: Request, res: Response) => {
   });
 };
 
-export const createProduct = async (
-  req: Request<{}, {}, createProductReqBody>,
-  res: Response,
-) => {
-  const { title, description, stock, price, img, isAvalible } = req.body;
+export const createProduct = async (req: Request, res: Response) => {
+  console.log(req.body);
+  console.log(req.file);
+  // const { title, description, stock, price, img, isAvalible }: any = req.body;
 
-  validateProductReqBody(res, req.body);
+  // validateProductReqBody(res, req.body);
 
-  const product = new Product({
-    title,
-    description,
-    stock,
-    price,
-    img,
-    isAvalible,
-  });
+  // const product = new Product({
+  //   title,
+  //   description,
+  //   stock,
+  //   price,
+  //   img,
+  //   isAvalible,
+  // });
 
-  const svdProduct = await product.save();
+  // const svdProduct = await product.save();
 
-  return res.status(201).json({
-    message: "Product Created Successfully",
-    product: svdProduct,
-  });
+  // return res.status(201).json({
+  //   message: "Product Created Successfully",
+  //   product: svdProduct,
+  // });
 };
 
 export const updateProduct = async (req: Request, res: Response) => {
