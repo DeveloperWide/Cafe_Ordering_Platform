@@ -1,6 +1,6 @@
 import { Pencil, Plus, Trash } from "lucide-react";
 import { useState } from "react";
-import ProductModel from "../../components/auth/ProductModel";
+import ProductModel from "../../components/products/ProductModel";
 
 const Products = () => {
   const [open, setOpen] = useState<boolean>(false);

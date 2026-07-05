@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 import { useEffect } from "react";
 
 interface ModalProps {
@@ -28,7 +29,7 @@ const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 mx-3"
       onClick={onClose}
     >
       <div
@@ -40,9 +41,9 @@ const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
 
           <button
             onClick={onClose}
-            className="text-2xl font-bold text-gray-500 hover:text-black"
+            className="text-2xl font-bold text-gray-500 hover:text-gray-600 hover:cursor-pointer"
           >
-            ×
+            <X />
           </button>
         </div>
 

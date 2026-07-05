@@ -6,14 +6,26 @@ interface InputProps {
   placeholder?: string;
   value?: InputHTMLAttributes<HTMLInputElement>["value"];
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  style: string;
+  label: boolean;
 }
 
-const Input = ({ type, name, placeholder, value, onChange }: InputProps) => {
+const Input = ({
+  type,
+  name,
+  placeholder,
+  value,
+  onChange,
+  style,
+  label,
+}: InputProps) => {
   return (
-    <div className="my-3 mx-4">
-      <label htmlFor={name} className="capitalize text-sm md:text-lg">
-        {name} :{" "}
-      </label>
+    <div className="mx-2">
+      {label && (
+        <label htmlFor={name} className="text-sm font-medium capitalize">
+          {name} :{" "}
+        </label>
+      )}
       <input
         type={type}
         name={name}
@@ -21,7 +33,7 @@ const Input = ({ type, name, placeholder, value, onChange }: InputProps) => {
         placeholder={placeholder}
         value={value}
         autoComplete="off"
-        className="w-[65%] mx-1 sm:w-[80%] lg:mx-2 px-2 py-2 rounded-2xl border border-gray-900/70 text-secondary outline-none"
+        className={`px-2 py-1 rounded-lg border border-gray-900/70 text-white focus:border-white/30 italic outline-none ${style} ${label ? "w-[75%] mx-0.5 sm:w-[90%]" : "w-full"}`}
         onChange={onChange}
       />
     </div>
