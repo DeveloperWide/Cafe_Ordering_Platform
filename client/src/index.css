@@ -44,19 +44,3 @@ body {
   --radius-card: 1rem;
   --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
-
-.products_table thead tr th {
-  @apply text-start;
-}
-
-th,
-td {
-  @apply px-3 py-2;
-}
-
-.products_table,
-tr,
-th,
-td {
-  @apply border border-solid border-white/30 rounded-2xl;
-}

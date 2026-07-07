@@ -1,30 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import Input from "../auth/Input";
 import { axiosInstace } from "../../utils/axiosInstance";
-
-interface Product {
-  title: string;
-  description: string;
-  stock: number;
-  price: number;
-  isAvalible: boolean;
-}
+import type { CreateProduct, UpdateProduct } from "../../types/products.types";
 
 interface ProductModelProps {
   isOpen: boolean;
   onClose: () => void;
+  type: "update" | "create";
+  data: null | UpdateProduct;
 }
 
-const ProductModel = ({ isOpen, onClose }: ProductModelProps) => {
-  const [productData, setProductData] = useState<Product>({
-    title: "",
-    description: "",
-    stock: 1,
-    price: 0,
-    isAvalible: true,
-  });
+const intialData: CreateProduct = {
+  title: "",
+  description: "",
+  stock: 1,
+  price: 0,
+  isAvalible: true,
+};
+
+const ProductModel = ({ isOpen, onClose, type, data }: ProductModelProps) => {
+  const [productData, setProductData] = useState<CreateProduct>(intialData);
   const [file, setFile] = useState<File | null>(null);
+
+  useEffect(() => {
+    if (type == "update" && data) {
+      setProductData({
+        title: data.title,
+        description: data.description,
+        stock: data.stock,
+        price: data.price,
+        isAvalible: data.isAvalible,
+      });
+    }
+  }, [type, data, isOpen]);
+
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -82,6 +92,14 @@ const ProductModel = ({ isOpen, onClose }: ProductModelProps) => {
       .post("/product/", formData)
       .then((res) => {
         console.log(res);
+        setProductData({
+          title: "",
+          description: "",
+          stock: 1,
+          price: 0,
+          isAvalible: true,
+        });
+        setFile(null);
       })
       .catch((err) => {
         console.log(err);

@@ -33,7 +33,7 @@ const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-lg rounded-xl bg-gray-900 p-6 shadow-xl"
+        className="w-full max-w-lg rounded-xl bg-[#0C0C12] p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between">
