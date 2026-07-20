@@ -1,38 +1,24 @@
 import { Pencil, Plus, Trash } from "lucide-react";
-import { useEffect, useState } from "react";
 import ProductModel from "../../components/products/ProductModel";
-import type { Product } from "../../types/products.types";
-import { axiosInstace } from "../../utils/axiosInstance";
 import { deleteProduct } from "../../services/produts.services";
+import { useProducts } from "../../hooks/useProducts";
 
 const Products = () => {
-  const [open, setOpen] = useState<boolean>(false);
-  const [products, setProducts] = useState<Product[]>([]);
-
-  const openModel = () => {
-    setOpen(() => !open);
-  };
-
-  useEffect(() => {
-    axiosInstace
-      .get("/product/")
-      .then((res) => {
-        console.log(res.data.products);
-        setProducts(res.data.products);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
+  const { products, modal, openCreateModal, openUpdateModal, closeModal } =
+    useProducts();
   return (
     <div>
       <header className="my-2 flex justify-between mx-5">
-        <ProductModel isOpen={open} onClose={() => setOpen(!open)} />
+        <ProductModel
+          isOpen={modal.open}
+          onClose={closeModal}
+          type={modal.type}
+          data={modal.data}
+        />
         <h2 className="text-3xl font-semibold italic my-3">Products</h2>
         <button
           className="rounded-full cursor-pointer bg-gray-900 px-4"
-          onClick={openModel}
+          onClick={openCreateModal}
         >
           <Plus />
         </button>
@@ -86,19 +72,22 @@ const Products = () => {
               <td className="text-center">
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                    product.isAvalible
+                    product.isAvailable
                       ? "bg-green-500/20 text-green-400"
                       : "bg-red-500/20 text-red-400"
                   }`}
                 >
-                  {product.isAvalible ? "Available" : "Out of Stock"}
+                  {product.isAvailable ? "Available" : "Out of Stock"}
                 </span>
               </td>
 
               {/* Actions */}
               <td>
                 <div className="flex items-center justify-center gap-3">
-                  <button className="rounded-lg p-2 transition hover:bg-blue-500/20">
+                  <button
+                    className="rounded-lg p-2 transition hover:bg-blue-500/20"
+                    onClick={() => openUpdateModal(product)}
+                  >
                     <Pencil size={18} className="text-blue-400" />
                   </button>
 

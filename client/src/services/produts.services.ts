@@ -1,4 +1,54 @@
+import type React from "react";
+import type {
+  CreateProduct,
+  Product,
+  UpdateProduct,
+} from "../types/products.types";
 import { axiosInstace } from "../utils/axiosInstance";
+
+interface createProductParams {
+  formData: FormData;
+  setProductData: React.Dispatch<React.SetStateAction<CreateProduct>>;
+  setFile: React.Dispatch<React.SetStateAction<File | null>>;
+}
+
+interface getProductsParams {
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+}
+
+export const getProducts = ({ setProducts }: getProductsParams) => {
+  axiosInstace
+    .get("/product/")
+    .then((res) => {
+      setProducts(res.data.products);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const createProduct = ({
+  formData,
+  setProductData,
+  setFile,
+}: createProductParams) => {
+  axiosInstace
+    .post("/product/", formData)
+    .then((res) => {
+      console.log(res);
+      setProductData({
+        title: "",
+        description: "",
+        stock: 1,
+        price: 0,
+        isAvailable: true,
+      });
+      setFile(null);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 export const deleteProduct = (id: string) => {
   axiosInstace
@@ -11,4 +61,14 @@ export const deleteProduct = (id: string) => {
     });
 };
 
-export const updateProduct = (id: string, data) => {};
+export const updateProduct = (id: string, data: UpdateProduct) => {
+  console.log("Updating product Details");
+  axiosInstace
+    .put(`product/${id}`, data)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

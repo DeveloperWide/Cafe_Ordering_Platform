@@ -3,7 +3,7 @@ export interface ProductBase {
   description: string;
   stock: number;
   price: number;
-  isAvalible: boolean;
+  isAvailable: boolean;
 }
 
 export interface CreateProduct extends ProductBase {}
@@ -18,3 +18,12 @@ export interface Product extends ProductBase {
 export interface UpdateProduct extends ProductBase {
   _id: string;
 }
+
+export interface ProductModelProps {
+  isOpen: boolean;
+  onClose: () => void;
+  type: "update" | "create";
+  data: null | UpdateProduct;
+}
+
+export type handleModelOpenParams = Pick<ProductModelProps, "type" | "data">;
