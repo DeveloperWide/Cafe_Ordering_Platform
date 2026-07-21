@@ -12,7 +12,6 @@ const productSchema = new Schema<IProduct>(
     description: {
       type: String,
       required: true,
-      minLength: 50,
       maxLength: 5000,
     },
     stock: {
@@ -27,7 +26,7 @@ const productSchema = new Schema<IProduct>(
     },
     img: [String],
 
-    isAvalible: {
+    isAvailable: {
       type: Boolean,
       required: true,
     },

@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
-import type {
-  handleModelOpenParams,
-  Product,
-  UpdateProduct,
-} from "../types/products.types";
-import { axiosInstace } from "../utils/axiosInstance";
+import type { Product, UpdateProduct } from "../types/products.types";
 import { getProducts } from "../services/produts.services";
-import ProductModel from "../components/products/ProductModel";
 
 export const useProducts = () => {
   const [modal, setModal] = useState<{
@@ -48,11 +42,6 @@ export const useProducts = () => {
   useEffect(() => {
     getProducts({ setProducts });
   }, []);
-
-  const handleModelOpen = ({ type, data }: handleModelOpenParams) => {
-    if (type == "update") {
-    }
-  };
 
   return {
     products,

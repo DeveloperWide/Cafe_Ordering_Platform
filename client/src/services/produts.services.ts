@@ -27,27 +27,26 @@ export const getProducts = ({ setProducts }: getProductsParams) => {
     });
 };
 
-export const createProduct = ({
+export const createProduct = async ({
   formData,
   setProductData,
   setFile,
-}: createProductParams) => {
-  axiosInstace
-    .post("/product/", formData)
-    .then((res) => {
-      console.log(res);
-      setProductData({
-        title: "",
-        description: "",
-        stock: 1,
-        price: 0,
-        isAvailable: true,
-      });
-      setFile(null);
-    })
-    .catch((err) => {
-      console.log(err);
+}: createProductParams): Promise<unknown> => {
+  console.log(formData);
+  try {
+    const res = await axiosInstace.post("/product/", formData);
+    setProductData({
+      title: "",
+      description: "",
+      stock: 1,
+      price: 0,
+      isAvailable: true,
     });
+    setFile(null);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const deleteProduct = (id: string) => {

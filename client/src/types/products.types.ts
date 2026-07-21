@@ -19,11 +19,11 @@ export interface UpdateProduct extends ProductBase {
   _id: string;
 }
 
-export interface ProductModelProps {
+export interface ProductModalProps {
   isOpen: boolean;
   onClose: () => void;
   type: "update" | "create";
   data: null | UpdateProduct;
 }
 
-export type handleModelOpenParams = Pick<ProductModelProps, "type" | "data">;
+export type handleModelOpenParams = Pick<ProductModalProps, "type" | "data">;

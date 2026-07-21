@@ -6,7 +6,7 @@ export interface IProduct extends Document {
   img: string[];
   stock: number;
   price: number;
-  isAvalible: boolean;
+  isAvailable: boolean;
 }
 
 export type createProductReqBody = Exclude<IProduct, "img">;

@@ -1,5 +1,5 @@
 import { Pencil, Plus, Trash } from "lucide-react";
-import ProductModel from "../../components/products/ProductModel";
+import ProductModal from "../../components/products/ProductModal";
 import { deleteProduct } from "../../services/produts.services";
 import { useProducts } from "../../hooks/useProducts";
 
@@ -9,7 +9,7 @@ const Products = () => {
   return (
     <div>
       <header className="my-2 flex justify-between mx-5">
-        <ProductModel
+        <ProductModal
           isOpen={modal.open}
           onClose={closeModal}
           type={modal.type}

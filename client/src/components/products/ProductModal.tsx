@@ -1,10 +1,10 @@
 import Modal from "../Modal";
 import Input from "../auth/Input";
-import { useProductModel } from "../../hooks/useProductModel";
-import type { ProductModelProps } from "../../types/products.types";
+import { useProductModal } from "../../hooks/useProductModal";
+import type { ProductModalProps } from "../../types/products.types";
 
-const ProductModel = ({ isOpen, onClose, type, data }: ProductModelProps) => {
-  const { productData, onChange, handleSubmit } = useProductModel({
+const ProductModal = ({ isOpen, onClose, type, data }: ProductModalProps) => {
+  const { productData, onChange, handleSubmit } = useProductModal({
     isOpen,
     onClose,
     type,
@@ -106,4 +106,4 @@ const ProductModel = ({ isOpen, onClose, type, data }: ProductModelProps) => {
   );
 };
 
-export default ProductModel;
+export default ProductModal;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import type { CreateProduct, ProductModelProps } from "../types/products.types";
-import { createProduct, updateProduct } from "../services/produts.services";
+import type { CreateProduct, ProductModalProps } from "../types/products.types";
+import { createProduct } from "../services/produts.services";
 
 const intialData: CreateProduct = {
   title: "",
@@ -10,7 +10,7 @@ const intialData: CreateProduct = {
   isAvailable: true,
 };
 
-export const useProductModel = ({ isOpen, type, data }: ProductModelProps) => {
+export const useProductModal = ({ isOpen, type, data }: ProductModalProps) => {
   const [productData, setProductData] = useState<CreateProduct>(intialData);
   const [file, setFile] = useState<File | null>(null);
 
@@ -66,7 +66,7 @@ export const useProductModel = ({ isOpen, type, data }: ProductModelProps) => {
     }));
   };
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -82,7 +82,8 @@ export const useProductModel = ({ isOpen, type, data }: ProductModelProps) => {
     }
 
     if (type == "create") {
-      createProduct({ formData, setProductData, setFile });
+      const data = await createProduct({ formData, setProductData, setFile });
+      console.log(data);
     } else if (data) {
       // updateProduct({
       //  id: data._id, formData, setProductData, setFile
