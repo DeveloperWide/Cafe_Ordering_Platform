@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { CreateProduct, ProductModalProps } from "../types/products.types";
-import { createProduct } from "../services/produts.services";
+import { createProduct, updateProduct } from "../services/produts.services";
 
 const intialData: CreateProduct = {
   title: "",
@@ -82,13 +82,9 @@ export const useProductModal = ({ isOpen, type, data }: ProductModalProps) => {
     }
 
     if (type == "create") {
-      const data = await createProduct({ formData, setProductData, setFile });
-      console.log(data);
+      await createProduct({ formData, setProductData, setFile });
     } else if (data) {
-      // updateProduct({
-      //  id: data._id, formData, setProductData, setFile
-      // })
-      console.log("Product Updated");
+      updateProduct(data._id, formData);
     }
   };
 

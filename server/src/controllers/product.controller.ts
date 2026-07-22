@@ -3,6 +3,8 @@ import Product from "../models/product.model";
 import { createProductReqBody } from "../types/product.types";
 import { validateProductReqBody } from "../services/product.services";
 import { uploadImage } from "../utils/uploadImage";
+import { filteredReqBody } from "../utils/filteredReqBody";
+import { deleteOldImage } from "../utils/deleteOldImage";
 
 export const getProducts = async (req: Request, res: Response) => {
   const products = await Product.find();
@@ -37,7 +39,10 @@ export const createProduct = async (
     console.log("Saving Product");
     const product = await Product.create({
       ...req.body,
-      img: [result?.secure_url],
+      img: {
+        url: result?.secure_url,
+        public_id: result?.public_id,
+      },
     });
     console.log(product);
     console.log("Product Saved");
@@ -60,6 +65,7 @@ export const createProduct = async (
 
 export const updateProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
+  console.log("Updating Product");
 
   const product = await Product.findById(id);
   if (!product) {
@@ -67,12 +73,34 @@ export const updateProduct = async (req: Request, res: Response) => {
       message: "ERROR: Product NOT Found",
     });
   }
+  // console.log("product", product);
+  console.log("Req Body :", req.body);
 
-  const updatedProduct = await Product.findByIdAndUpdate(
-    id,
-    { ...req.body },
-    { new: true, returnDocument: "after" },
-  );
+  const updates = filteredReqBody(req);
+  // console.log("updates", updates);
+  Object.assign(product, updates);
+  // console.log("Product Updates", product);
+
+  let updatedProduct;
+
+  if (req.file) {
+    await deleteOldImage(product.img.public_id);
+    const result = await uploadImage(req.file?.buffer);
+
+    if (!result) {
+      return res.status(500).json({ message: "Image Uploading Failed" });
+    }
+
+    product.img = {
+      url: result?.secure_url,
+      public_id: result?.public_id,
+    };
+
+    updatedProduct = await product.save();
+  }
+
+  updatedProduct = await product.save();
+  console.log(updatedProduct);
 
   return res.status(200).json({
     message: "Successfully Updated Product",

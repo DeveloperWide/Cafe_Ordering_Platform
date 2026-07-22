@@ -10,7 +10,7 @@ const router = Router({});
 
 router.get("/", getProducts);
 router.post("/", upload.single("img"), createProduct);
-router.put("/:id", updateProduct);
+router.put("/:id", upload.single("img"), updateProduct);
 router.delete("/:id", deleteProduct);
 
 export default router;

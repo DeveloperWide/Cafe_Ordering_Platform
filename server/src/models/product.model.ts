@@ -24,7 +24,10 @@ const productSchema = new Schema<IProduct>(
       required: true,
       min: [0, `Price Can't Be Negative`],
     },
-    img: [String],
+    img: {
+      url: String,
+      public_id: String,
+    },
 
     isAvailable: {
       type: Boolean,

@@ -45,7 +45,7 @@ const Products = () => {
               <td className="px-5 py-4">
                 <div className="flex items-center gap-4">
                   <img
-                    src={product.img[0]}
+                    src={product.img.url}
                     alt={product.title}
                     className="h-14 w-14 rounded-lg object-cover"
                   />

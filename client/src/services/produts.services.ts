@@ -31,28 +31,29 @@ export const createProduct = async ({
   formData,
   setProductData,
   setFile,
-}: createProductParams): Promise<unknown> => {
-  console.log(formData);
-  try {
-    const res = await axiosInstace.post("/product/", formData);
-    setProductData({
-      title: "",
-      description: "",
-      stock: 1,
-      price: 0,
-      isAvailable: true,
+}: createProductParams) => {
+  axiosInstace
+    .post("/product/", formData)
+    .then(() => {
+      setProductData({
+        title: "",
+        description: "",
+        stock: 1,
+        price: 0,
+        isAvailable: true,
+      });
+      setFile(null);
+    })
+    .catch((err) => {
+      console.log(err);
     });
-    setFile(null);
-    return res.data;
-  } catch (err) {
-    console.log(err);
-  }
 };
 
-export const deleteProduct = (id: string) => {
+export const updateProduct = (id: string, data: FormData) => {
   axiosInstace
-    .delete(`product/${id}`)
+    .put(`product/${id}`, data)
     .then((res) => {
+      console.log("Product Updated Successfully");
       console.log(res);
     })
     .catch((err) => {
@@ -60,10 +61,9 @@ export const deleteProduct = (id: string) => {
     });
 };
 
-export const updateProduct = (id: string, data: UpdateProduct) => {
-  console.log("Updating product Details");
+export const deleteProduct = (id: string) => {
   axiosInstace
-    .put(`product/${id}`, data)
+    .delete(`product/${id}`)
     .then((res) => {
       console.log(res);
     })

@@ -10,7 +10,10 @@ export interface CreateProduct extends ProductBase {}
 
 export interface Product extends ProductBase {
   _id: string;
-  img: string[];
+  img: {
+    url: string;
+    public_id: string;
+  };
   createdAt: string;
   updatedAt: string;
 }
