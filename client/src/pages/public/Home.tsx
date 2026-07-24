@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import { Navbar, Footer } from "../layouts/index.ts";
+import { Footer, Navbar } from "../../layouts";
 
 const Home = () => {
   return (

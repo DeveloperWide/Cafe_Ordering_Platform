@@ -18,30 +18,25 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <ul className="hidden lg:flex items-center gap-6">
           <li>
-            <NavLink to="/" className="nav-item">
+            <NavLink to="/cafe" className="nav-item">
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink to="/menu" className="nav-item">
+            <NavLink to="/cafe/menu" className="nav-item">
               Browse Menu
             </NavLink>
           </li>
           <li>
-            <NavLink to="/restaurants" className="nav-item">
+            <NavLink to="/cafe/restaurants" className="nav-item">
               Restaurants
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/track-order" className="nav-item">
-              Track Order
             </NavLink>
           </li>
         </ul>
 
         {/* Desktop Button */}
         <Link
-          to="/auth/login"
+          to="/cafe/auth/login"
           className="hidden lg:block bg-[#efb848] px-4 py-2 rounded font-semibold text-gray-900 hover:opacity-90"
         >
           Login
@@ -49,7 +44,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <Link
-          to="/auth/login"
+          to="/cafe/auth/login"
           className="lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
         >
@@ -62,28 +57,18 @@ const Navbar = () => {
         <div className="lg:hidden bg-background border-t">
           <ul className="flex flex-col p-4 gap-4">
             <li>
-              <NavLink to="/" className="nav-item">
+              <NavLink to="/cafe" className="nav-item">
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink to="/menu" className="nav-item">
+              <NavLink to="/cafe/menu" className="nav-item">
                 Browse Menu
               </NavLink>
             </li>
             <li>
-              <NavLink to="/offers" className="nav-item">
-                Special Offers
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/restaurants" className="nav-item">
+              <NavLink to="/cafe/restaurants" className="nav-item">
                 Restaurants
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/track-order" className="nav-item">
-                Track Order
               </NavLink>
             </li>
 

@@ -1,8 +1,8 @@
 import { Dessert } from "lucide-react";
-import Burgers from "../components/menu/Burgers";
-import ColdDrinks from "../components/menu/ColdDrinks";
-import Fries from "../components/menu/Fries";
-import Searchbar from "../components/Searchbar";
+import Burgers from "../../components/menu/Burgers";
+import ColdDrinks from "../../components/menu/ColdDrinks";
+import Fries from "../../components/menu/Fries";
+import Searchbar from "../../components/Searchbar";
 
 const Menu = () => {
   return (

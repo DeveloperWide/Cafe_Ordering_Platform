@@ -1,7 +1,7 @@
-import Main from "./Main";
-import Home from "./Home";
-import Menu from "./Menu";
-import Restaurants from "./Restaurants";
-import TrackOrder from "./TrackOrder";
+import Main from "./public/Main";
+import Home from "./public/Home";
+import Menu from "./public/Menu";
+import Restaurants from "./public/Restaurants";
+import TrackOrder from "./user/TrackOrder";
 
 export { Main, Home, Menu, Restaurants, TrackOrder };

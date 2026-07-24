@@ -1,8 +1,8 @@
-import pizzaImage from "../assets/pizza.jpg";
+import pizzaImage from "../../assets/pizza.jpg";
 import { IconInvoice, IconTruckDelivery } from "@tabler/icons-react";
 import { Clock, Clock3, MapPinIcon, PhoneCall } from "lucide-react";
 import { useState } from "react";
-import { menu, timings } from "../data/Restaurant";
+import { menu, timings } from "../../data/Restaurant";
 
 const Restaurants = () => {
   const [activeItem, setActiveItem] = useState<string>("offers");

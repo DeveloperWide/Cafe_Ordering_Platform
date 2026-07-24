@@ -1,20 +1,20 @@
 import { MoveRight } from "lucide-react";
-import heroImage from "../assets/hero.png";
-import {
-  CafeCard,
-  CategoryCard,
-  PartnerWithUs,
-} from "../components/cards/index.ts";
-import DownloadAppImage from "../assets/downloadApp.png";
-import DownloadAppLogo from "../assets/DownloadAppImage.png";
+import heroImage from "../../assets/hero.png";
+import DownloadAppImage from "../../assets/downloadApp.png";
+import DownloadAppLogo from "../../assets/DownloadAppImage.png";
 import { useState } from "react";
 import {
   FAQ,
   WhoWeAre,
   PartnerProgram,
   HelpSupport,
-} from "../components/tabs/index.ts";
-import { cafes, categories, stats, tabs } from "../data/Main";
+} from "../../components/tabs/index.ts";
+import { cafes, categories, stats, tabs } from "../../data/Main";
+import {
+  CafeCard,
+  PartnerWithUs,
+  CategoryCard,
+} from "../../components/cards/index.ts";
 
 const Main = () => {
   const [activeTab, setActiveTabs] = useState<string>("faq");
