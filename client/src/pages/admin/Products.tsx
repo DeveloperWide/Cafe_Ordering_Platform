@@ -2,10 +2,12 @@ import { Pencil, Plus, Trash } from "lucide-react";
 import ProductModal from "../../components/products/ProductModal";
 import { deleteProduct } from "../../services/produts.services";
 import { useProducts } from "../../hooks/useProducts";
+import { useNavigate } from "react-router";
 
 const Products = () => {
   const { products, modal, openCreateModal, openUpdateModal, closeModal } =
     useProducts();
+  const navigate = useNavigate();
   return (
     <div>
       <header className="my-2 flex justify-between mx-5">
@@ -42,7 +44,10 @@ const Products = () => {
               className="border-t border-white/10 transition hover:bg-white/5"
             >
               {/* Product */}
-              <td className="px-5 py-4">
+              <td
+                className="px-5 py-4"
+                onClick={() => navigate(`/products/${product._id}`)}
+              >
                 <div className="flex items-center gap-4">
                   <img
                     src={product.img.url}

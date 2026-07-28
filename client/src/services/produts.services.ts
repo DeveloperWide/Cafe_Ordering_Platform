@@ -49,6 +49,17 @@ export const createProduct = async ({
     });
 };
 
+export const getProduct = async (id: string): Promise<Product | undefined> => {
+  try {
+    const res = await axiosInstace.get(`product/${id}`);
+    const data: Product = res.data.product;
+
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const updateProduct = (id: string, data: FormData) => {
   axiosInstace
     .put(`product/${id}`, data)

@@ -1,15 +1,16 @@
 import { Route, Routes } from "react-router";
 
-import { Home, Main, Menu, Restaurants, TrackOrder } from "./pages/index.ts";
+import { Home, Main, Menu, Restaurants } from "./pages/index.ts";
 import Signup from "./pages/auth/Signup.tsx";
 import Login from "./pages/auth/Login.tsx";
 import Admin from "./pages/admin/Admin.tsx";
 import Products from "./pages/admin/Products.tsx";
 import Orders from "./pages/admin/Orders.tsx";
 import Dashboard from "./pages/admin/Dashboard.tsx";
-import ShowProduct from "./pages/product/ShowProduct.tsx";
 import Cart from "./pages/user/Cart.tsx";
 import Wishlist from "./pages/user/Wishlist.tsx";
+import ProductDetails from "./pages/product/ProductDetails.tsx";
+import BrewCafe from "./pages/user/BrewCafe.tsx";
 
 function App() {
   return (
@@ -34,11 +35,11 @@ function App() {
 
       {/* for Users who have Account on BrewCafe */}
       {/* /, /products , /products/:productId */}
-      <Route path="/" element={<Products />}>
+      <Route path="/" element={<BrewCafe />}>
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/products" element={<Products />} />
-        <Route path={`products/:id`} element={<ShowProduct />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
       </Route>
     </Routes>
   );
