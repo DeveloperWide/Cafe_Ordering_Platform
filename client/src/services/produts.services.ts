@@ -1,52 +1,44 @@
 import type React from "react";
-import type {
-  CreateProduct,
-  Product,
-  UpdateProduct,
-} from "../types/products.types";
+import type { Product } from "../types/products.types";
 import { axiosInstace } from "../utils/axiosInstance";
 
-interface createProductParams {
-  formData: FormData;
-  setProductData: React.Dispatch<React.SetStateAction<CreateProduct>>;
-  setFile: React.Dispatch<React.SetStateAction<File | null>>;
-}
+export const getProducts = async (): Promise<Product[]> => {
+  try {
+    const res = await axiosInstace.get("/product/");
+    const products: Product[] = res.data.products;
 
-interface getProductsParams {
-  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
-}
-
-export const getProducts = ({ setProducts }: getProductsParams) => {
-  axiosInstace
-    .get("/product/")
-    .then((res) => {
-      setProducts(res.data.products);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    return products;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
 };
 
-export const createProduct = async ({
-  formData,
-  setProductData,
-  setFile,
-}: createProductParams) => {
-  axiosInstace
-    .post("/product/", formData)
-    .then(() => {
-      setProductData({
-        title: "",
-        description: "",
-        stock: 1,
-        price: 0,
-        isAvailable: true,
-      });
-      setFile(null);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+export const createProduct = async (
+  formData: FormData,
+): Promise<Product | null> => {
+  try {
+    const res = await axiosInstace.post("/product/", formData);
+    const data: Product = res.data.data;
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+  // .then(() => {
+  //   setProductData({
+  //     title: "",
+  //     description: "",
+  //     stock: 1,
+  //     price: 0,
+  //     isAvailable: true,
+  //   });
+  //   setFile(null);
+  // })
+  // .catch((err) => {
+  //   console.log(err);
+  // });
 };
 
 export const getProduct = async (id: string): Promise<Product | undefined> => {

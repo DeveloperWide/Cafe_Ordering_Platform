@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import type { CreateProduct, ProductModalProps } from "../types/products.types";
 import { createProduct, updateProduct } from "../services/produts.services";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../features/products/productSlice";
 
 const intialData: CreateProduct = {
   title: "",
@@ -10,9 +12,15 @@ const intialData: CreateProduct = {
   isAvailable: true,
 };
 
-export const useProductModal = ({ isOpen, type, data }: ProductModalProps) => {
+export const useProductModal = ({
+  isOpen,
+  onClose,
+  type,
+  data,
+}: ProductModalProps) => {
   const [productData, setProductData] = useState<CreateProduct>(intialData);
   const [file, setFile] = useState<File | null>(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (type == "update" && data) {
@@ -82,7 +90,18 @@ export const useProductModal = ({ isOpen, type, data }: ProductModalProps) => {
     }
 
     if (type == "create") {
-      await createProduct({ formData, setProductData, setFile });
+      const product = await createProduct(formData);
+
+      if (product == null) {
+        return;
+      }
+
+      onClose(!open);
+
+      setProductData(intialData);
+      setFile(null);
+
+      dispatch(addProduct(product));
     } else if (data) {
       updateProduct(data._id, formData);
     }

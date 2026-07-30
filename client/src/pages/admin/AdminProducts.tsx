@@ -1,12 +1,12 @@
 import { Pencil, Plus, Trash } from "lucide-react";
 import ProductModal from "../../components/products/ProductModal";
 import { deleteProduct } from "../../services/produts.services";
-import { useProducts } from "../../hooks/useProducts";
+import { useAdminProducts } from "../../hooks/useAdminProducts";
 import { useNavigate } from "react-router";
 
-const Products = () => {
+const AdminProducts = () => {
   const { products, modal, openCreateModal, openUpdateModal, closeModal } =
-    useProducts();
+    useAdminProducts();
   const navigate = useNavigate();
   return (
     <div>
@@ -114,4 +114,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default AdminProducts;
