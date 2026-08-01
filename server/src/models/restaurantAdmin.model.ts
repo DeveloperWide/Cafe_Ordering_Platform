@@ -1,15 +1,15 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
-import { IUser } from "../types/user.types";
+import { IRestaurantAdmin } from "../types/restaurantAdmin.types";
 
-const userSchema = new Schema<IUser>(
+const restaurantAdminSchema = new Schema<IRestaurantAdmin>(
   {
     name: {
       type: String,
       required: true,
+      minLength: 4,
       maxLength: 15,
     },
-
     email: {
       type: String,
       required: true,
@@ -19,39 +19,38 @@ const userSchema = new Schema<IUser>(
       match: [/^\S+@\S+\.\S+$/, "Enter Valid Email"],
     },
 
+    role: "restaurantAdmin",
+
     password: {
       type: String,
       required: true,
     },
 
-    role: "customer",
-
-    phone: {
-      type: Number,
-      unique: true,
-      minLength: 10,
-    },
-
-    profileImage: {
-      url: String,
-      publicId: String,
+    permissions: {
+      products: true,
+      orders: true,
+      employees: true,
+      analytics: true,
     },
   },
   { timestamps: true },
 );
 
-userSchema.pre("save", async function () {
+restaurantAdminSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
 
   this.password = await bcrypt.hash(this.password, 12);
 });
 
-userSchema.methods.comparePassword = async function (
+restaurantAdminSchema.methods.comparePassword = async function (
   entered: string,
 ): Promise<boolean> {
   return await bcrypt.compare(entered, this.password);
 };
 
-const User = model<IUser>("User", userSchema);
+const RestaurantAdmin = model<IRestaurantAdmin>(
+  "RestaurantAdmin",
+  restaurantAdminSchema,
+);
 
-export default User;
+export default RestaurantAdmin;

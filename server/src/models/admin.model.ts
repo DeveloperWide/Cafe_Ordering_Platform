@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
-import { IUser } from "../types/user.types";
+import { IAdmin } from "../types/admin.types";
 
-const userSchema = new Schema<IUser>(
+const adminSchema = new Schema<IAdmin>(
   {
     name: {
       type: String,
@@ -19,39 +19,37 @@ const userSchema = new Schema<IUser>(
       match: [/^\S+@\S+\.\S+$/, "Enter Valid Email"],
     },
 
+    role: "admin",
+
     password: {
       type: String,
       required: true,
     },
 
-    role: "customer",
-
-    phone: {
-      type: Number,
-      unique: true,
-      minLength: 10,
-    },
-
-    profileImage: {
-      url: String,
-      publicId: String,
+    permissions: {
+      restaurants: true,
+      users: true,
+      products: true,
+      orders: true,
+      analytics: true,
+      settings: true,
     },
   },
   { timestamps: true },
 );
 
-userSchema.pre("save", async function () {
+adminSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
 
   this.password = await bcrypt.hash(this.password, 12);
 });
 
-userSchema.methods.comparePassword = async function (
+adminSchema.methods.comparePassword = async function (
   entered: string,
 ): Promise<boolean> {
   return await bcrypt.compare(entered, this.password);
 };
 
-const User = model<IUser>("User", userSchema);
+const Admin = model<IAdmin>("Admin", adminSchema);
 
-export default User;
+export default Admin;

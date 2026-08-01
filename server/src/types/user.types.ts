@@ -1,9 +1,20 @@
-import { Document } from "mongoose";
+export interface IUser {
+  _id: string;
 
-export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
+  phone?: number;
+
+  role: "customer";
+
+  profileImage?: {
+    url: string;
+    publicId: string;
+  };
+
+  createdAt: Date;
+  updatedAt: Date;
 
   comparePassword: (entered: string) => Promise<boolean>;
 }
