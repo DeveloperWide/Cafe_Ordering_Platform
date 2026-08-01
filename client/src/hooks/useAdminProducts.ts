@@ -44,14 +44,17 @@ export const useAdminProducts = () => {
   };
 
   const fetchProducts = async () => {
-    const products = await getProducts();
-
-    dispatch(setProducts(products));
+    try {
+      const products = await getProducts();
+      dispatch(setProducts(products));
+    } catch (error) {
+      console.error("Failed to fetch products:", error);
+    }
   };
 
   useEffect(() => {
     fetchProducts();
-  }, [products]);
+  }, []);
 
   return {
     products,
@@ -59,5 +62,6 @@ export const useAdminProducts = () => {
     openCreateModal,
     closeModal,
     openUpdateModal,
+    refetch: fetchProducts,
   };
 };

@@ -96,7 +96,7 @@ export const useProductModal = ({
         return;
       }
 
-      onClose(!open);
+      // onClose(!open);
 
       setProductData(intialData);
       setFile(null);

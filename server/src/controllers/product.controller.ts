@@ -37,19 +37,21 @@ export const createProduct = async (
       return res.status(500).json({ message: "Image Uploading Failed" });
 
     console.log("Saving Product");
-    const product = await Product.create({
+    const product = new Product({
       ...req.body,
       img: {
         url: result?.secure_url,
         public_id: result?.public_id,
       },
     });
-    console.log(product);
+
+    const svdProduct = await product.save();
+    console.log(svdProduct);
     console.log("Product Saved");
 
     return res.status(201).json({
       message: "Product Created Successfully",
-      product,
+      product: svdProduct,
     });
   } catch (err) {
     // TODOs
@@ -57,6 +59,7 @@ export const createProduct = async (
       1. add response for validation failure
       2. delete image from cloudinary if the product isn't saved
     */
+    console.log(err);
     return res.status(500).json({
       message: "Internal Server error",
     });

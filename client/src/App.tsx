@@ -5,15 +5,29 @@ import Signup from "./pages/auth/Signup.tsx";
 import Login from "./pages/auth/Login.tsx";
 import Admin from "./pages/admin/Admin.tsx";
 import AdminProducts from "./pages/admin/AdminProducts.tsx";
-import Orders from "./pages/admin/Orders.tsx";
-import Dashboard from "./pages/admin/Dashboard.tsx";
-import Cart from "./pages/user/Cart.tsx";
-import Wishlist from "./pages/user/Wishlist.tsx";
-import ProductDetails from "./pages/product/ProductDetails.tsx";
-import BrewCafe from "./pages/user/BrewCafe.tsx";
-import Products from "./pages/product/Products.tsx";
+import { useEffect } from "react";
+import {
+  BrewCafe,
+  Cart,
+  ProductDetails,
+  Products,
+  Dashboard,
+  Orders,
+} from "./pages/user/index.ts";
+import { useAdminProducts } from "./hooks/useAdminProducts.ts";
+import { useSelector } from "react-redux";
+import type { RootState } from "./app/store.ts";
 
 function App() {
+  const { refetch } = useAdminProducts();
+  const products = useSelector((state: RootState) => state.product.products);
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  console.log(products);
+
   return (
     <Routes>
       {/* for Users who doesn't have account on brewCafe */}
@@ -37,10 +51,12 @@ function App() {
       {/* for Users who have Account on BrewCafe */}
       {/* /, /products , /products/:productId */}
       <Route path="/" element={<BrewCafe />}>
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/orders" element={<Orders />} />
+        {/* <Route path="/checkout" element={<Checkout />} /> */}
+        {/* <Route path="/wishlist" element={<Wishlist />} /> */}
       </Route>
     </Routes>
   );
