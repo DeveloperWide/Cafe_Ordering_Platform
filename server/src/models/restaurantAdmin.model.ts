@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
-import { IRestaurantAdmin } from "../types/restaurantAdmin.types";
+import { IRestaurantAdminDocument } from "../types/restaurantAdmin.types";
 
-const restaurantAdminSchema = new Schema<IRestaurantAdmin>(
+const restaurantAdminSchema = new Schema<IRestaurantAdminDocument>(
   {
     name: {
       type: String,
@@ -19,7 +19,11 @@ const restaurantAdminSchema = new Schema<IRestaurantAdmin>(
       match: [/^\S+@\S+\.\S+$/, "Enter Valid Email"],
     },
 
-    role: "restaurantAdmin",
+    role: {
+      type: String,
+      enum: ["customer", "admin", "restaurantAdmin"],
+      default: "restaurantAdmin",
+    },
 
     password: {
       type: String,
@@ -48,7 +52,7 @@ restaurantAdminSchema.methods.comparePassword = async function (
   return await bcrypt.compare(entered, this.password);
 };
 
-const RestaurantAdmin = model<IRestaurantAdmin>(
+const RestaurantAdmin = model<IRestaurantAdminDocument>(
   "RestaurantAdmin",
   restaurantAdminSchema,
 );

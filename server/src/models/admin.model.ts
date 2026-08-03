@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
-import { IAdmin } from "../types/admin.types";
+import { IAdminDocument } from "../types/admin.types";
 
-const adminSchema = new Schema<IAdmin>(
+const adminSchema = new Schema<IAdminDocument>(
   {
     name: {
       type: String,
@@ -19,7 +19,11 @@ const adminSchema = new Schema<IAdmin>(
       match: [/^\S+@\S+\.\S+$/, "Enter Valid Email"],
     },
 
-    role: "admin",
+    role: {
+      type: String,
+      enum: ["customer", "admin", "restaurantAdmin"],
+      default: "admin",
+    },
 
     password: {
       type: String,
@@ -50,6 +54,6 @@ adminSchema.methods.comparePassword = async function (
   return await bcrypt.compare(entered, this.password);
 };
 
-const Admin = model<IAdmin>("Admin", adminSchema);
+const Admin = model<IAdminDocument>("Admin", adminSchema);
 
 export default Admin;

@@ -1,12 +1,11 @@
-export interface IUser {
-  _id: string;
+import { Document, Types } from "mongoose";
 
+export interface IUser {
   name: string;
   email: string;
-  password: string;
   phone?: number;
 
-  role: "customer";
+  role: "customer" | "admin" | "restaurantAdmin";
 
   profileImage?: {
     url: string;
@@ -15,9 +14,10 @@ export interface IUser {
 
   createdAt: Date;
   updatedAt: Date;
-
-  comparePassword: (entered: string) => Promise<boolean>;
 }
 
-export type LoginReqBody = Pick<IUser, "email" | "password">;
-export type SignupReqBody = Pick<IUser, "name" | "email" | "password">;
+export interface IUserDocument extends IUser, Document {
+  password: string;
+
+  comparePassword: (candidatePassword: string) => Promise<Boolean>;
+}

@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
-import { IUser } from "../types/user.types";
+import { IUserDocument } from "../types/user.types";
 
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema<IUserDocument>(
   {
     name: {
       type: String,
@@ -24,7 +24,11 @@ const userSchema = new Schema<IUser>(
       required: true,
     },
 
-    role: "customer",
+    role: {
+      type: String,
+      enum: ["customer", "admin", "restaurantAdmin"],
+      default: "customer",
+    },
 
     phone: {
       type: Number,
@@ -52,6 +56,6 @@ userSchema.methods.comparePassword = async function (
   return await bcrypt.compare(entered, this.password);
 };
 
-const User = model<IUser>("User", userSchema);
+const User = model<IUserDocument>("User", userSchema);
 
 export default User;

@@ -1,12 +1,7 @@
-export interface IAdmin {
-  _id: string;
+import { Document, ObjectId, Types } from "mongoose";
+import { IUser } from "./user.types";
 
-  name: string;
-  email: string;
-  password: string;
-
-  role: "admin";
-
+export interface IAdmin extends IUser {
   permissions: {
     restaurants: boolean;
     users: boolean;
@@ -15,9 +10,10 @@ export interface IAdmin {
     analytics: boolean;
     settings: boolean;
   };
+}
 
-  createdAt: Date;
-  updatedAt: Date;
+export interface IAdminDocument extends IAdmin, Document {
+  password: string;
 
-  comparePassword: () => Promise<boolean>;
+  comparePassword: (candidatePassword: string) => Promise<boolean>;
 }

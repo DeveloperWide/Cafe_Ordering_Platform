@@ -1,6 +1,7 @@
+import { Types } from "mongoose";
 import { Document } from "mongoose";
 
-export interface IProduct extends Document {
+export interface IProduct {
   title: string;
   description: string;
   img: {
@@ -11,6 +12,8 @@ export interface IProduct extends Document {
   price: number;
   isAvailable: boolean;
 }
+
+export interface IProductDocument extends IProduct, Document {}
 
 export type createProductReqBody = Exclude<IProduct, "img">;
 export type updateProductReqBody = Exclude<IProduct, "img">;

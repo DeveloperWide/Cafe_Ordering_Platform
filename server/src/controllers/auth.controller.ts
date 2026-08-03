@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { LoginReqBody, SignupReqBody } from "../types/user.types";
+import { LoginReqBody, SignupReqBody } from "../types/auth.types";
 import User from "../models/user.model";
 import { valitadeReqBody } from "../services/auth.services";
 

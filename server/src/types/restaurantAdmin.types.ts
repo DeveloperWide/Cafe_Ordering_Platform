@@ -1,13 +1,8 @@
-export interface IRestaurantAdmin {
-  _id: string;
+import { Types } from "mongoose";
+import { IUser } from "./user.types";
 
-  name: string;
-  email: string;
-  password: string;
-
-  role: "restaurantAdmin";
-
-  restaurantId: string;
+export interface IRestaurantAdmin extends IUser {
+  restaurantId: Types.ObjectId;
 
   permissions: {
     products: boolean;
@@ -15,6 +10,10 @@ export interface IRestaurantAdmin {
     employees: boolean;
     analytics: boolean;
   };
+}
 
-  createdAt: string;
+export interface IRestaurantAdminDocument extends IRestaurantAdmin, Document {
+  password: string;
+
+  comparePassword: (candidatePassword: string) => Promise<boolean>;
 }
