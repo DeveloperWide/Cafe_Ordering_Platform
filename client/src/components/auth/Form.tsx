@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type InputHTMLAttributes } from "react";
 import Input from "./Input";
 import { axiosInstace } from "../../utils/axiosInstance";
 
@@ -12,12 +12,44 @@ interface Data {
   password: string;
 }
 
+interface InputArr {
+  type: InputHTMLAttributes<HTMLInputElement>["type"];
+  name: string;
+  placeholder?: string;
+  value?: InputHTMLAttributes<HTMLInputElement>["value"];
+}
+
 const Form = ({ type }: FormProps) => {
   const [data, setData] = useState<Data>({
     name: "",
     email: "",
     password: "",
   });
+
+  const inputs: InputArr[] = [
+    {
+      type: "email",
+      placeholder: "john@example.com",
+      name: "email",
+      value: data.email,
+    },
+    {
+      type: "password",
+      placeholder: "L@Dh*h2-nW>JPbG",
+      name: "password",
+      value: data.password,
+    },
+    ...(type == "signup"
+      ? [
+          {
+            type: "text",
+            placeholder: "John Doe",
+            name: "name",
+            value: data.name,
+          },
+        ]
+      : []),
+  ];
 
   const onSubmitHandler = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,30 +95,20 @@ const Form = ({ type }: FormProps) => {
         {type == "signup" ? "Welcome on BrewCafe" : "Welcome Back on BrewCafe"}
       </h1>
       <hr className="w-full text-white/10 mb-5 mt-4" />
-      {type == "signup" && (
-        <Input
-          type="text"
-          name="name"
-          placeholder="John doe"
-          value={data.name}
-          onChange={onChangeHandler}
-        />
-      )}
-      <Input
-        type="email"
-        name="email"
-        placeholder="support@focushub.co.in"
-        value={data.email}
-        onChange={onChangeHandler}
-      />
-      <Input
-        type="password"
-        name="password"
-        placeholder="L@Dh*h2-nW>JPbG"
-        value={data.password}
-        onChange={onChangeHandler}
-      />
 
+      {inputs.map((input) => {
+        return (
+          <Input
+            type={input.type}
+            name={input.name}
+            placeholder={input.placeholder}
+            value={input.value}
+            onChange={onChangeHandler}
+            className="mx-1 my-2"
+            label={false}
+          />
+        );
+      })}
       <button
         type="submit"
         className="self-end relative z-0 rounded font-semibold text-gray-950 bg-secondary/90 px-10 py-3 transition-[all_0.3s_ease] after:absolute after:left-0 after:top-0 after:-z-10 after:h-full after:w-0 after:rounded after:bg-secondary cursor-pointer after:transition-[all_0.3s_ease]  hover:after:w-full mx-2 my-2 "

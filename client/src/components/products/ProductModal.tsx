@@ -24,7 +24,7 @@ const ProductModal = ({ isOpen, onClose, type, data }: ProductModalProps) => {
             placeholder="Apple MacBook Air M2 chip"
             value={productData.title}
             onChange={onChange}
-            style="bg-gray-70 border border-white/15"
+            className="bg-gray-70 border border-white/15"
             label={true}
           />
 
@@ -52,7 +52,7 @@ const ProductModal = ({ isOpen, onClose, type, data }: ProductModalProps) => {
               placeholder="Stock"
               value={productData.stock}
               onChange={onChange}
-              style="bg-gray-70 border border-white/15 md:w-[80%]"
+              className="bg-gray-70 border border-white/15 md:w-[80%]"
               label={true}
             />
 
@@ -62,7 +62,7 @@ const ProductModal = ({ isOpen, onClose, type, data }: ProductModalProps) => {
               placeholder="Price"
               value={productData.price}
               onChange={onChange}
-              style="bg-gray-70 border border-white/15 md:w-[80%]"
+              className="bg-gray-70 border border-white/15 md:w-[80%]"
               label={true}
             />
           </div>
@@ -76,7 +76,7 @@ const ProductModal = ({ isOpen, onClose, type, data }: ProductModalProps) => {
               type="file"
               name="img"
               onChange={onChange}
-              style="bg-gray-70 border border-white/15"
+              className="bg-gray-70 border border-white/15"
               label={false}
             />
           </div>
