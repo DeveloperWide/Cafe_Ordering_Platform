@@ -2,6 +2,14 @@ import Modal from "../Modal";
 import Input from "../auth/Input";
 import { useProductModal } from "../../hooks/useProductModal";
 import type { ProductModalProps } from "../../types/products.types";
+import {
+  Captions,
+  DollarSign,
+  Image,
+  IndianRupee,
+  Layers,
+  ReceiptText,
+} from "lucide-react";
 
 const ProductModal = ({ isOpen, onClose, type, data }: ProductModalProps) => {
   const { productData, onChange, handleSubmit } = useProductModal({
@@ -26,21 +34,28 @@ const ProductModal = ({ isOpen, onClose, type, data }: ProductModalProps) => {
             onChange={onChange}
             className="bg-gray-70 border border-white/15"
             label={true}
+            icon={Captions}
           />
 
           {/* Description */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 relative">
             <label htmlFor="description" className="text-sm font-medium">
               Description
             </label>
+
+            <ReceiptText
+              size={20}
+              className="absolute left-2 top-1/4 -translate-y-1/2 text-gray-400"
+            />
 
             <textarea
               id="description"
               name="description"
               value={productData.description}
               onChange={onChange}
-              rows={5}
-              className="w-full rounded-lg border border-white/15 px-3 py-2 outline-none focus:border-white/30"
+              rows={6}
+              placeholder="Describe your product, its features, and what makes it unique..."
+              className="w-full rounded-xl border border-white/10 bg-white/5 py-2 ps-9 pe-3 text-white placeholder:text-gray-400 outline-none transition-all duration-300 hover:border-white/20 focus:border-secondary focus:bg-white/10 focus:ring-2 focus:ring-secondary/40"
             />
           </div>
 
@@ -54,6 +69,7 @@ const ProductModal = ({ isOpen, onClose, type, data }: ProductModalProps) => {
               onChange={onChange}
               className="bg-gray-70 border border-white/15 md:w-[80%]"
               label={true}
+              icon={Layers}
             />
 
             <Input
@@ -64,6 +80,7 @@ const ProductModal = ({ isOpen, onClose, type, data }: ProductModalProps) => {
               onChange={onChange}
               className="bg-gray-70 border border-white/15 md:w-[80%]"
               label={true}
+              icon={IndianRupee}
             />
           </div>
 
@@ -78,6 +95,7 @@ const ProductModal = ({ isOpen, onClose, type, data }: ProductModalProps) => {
               onChange={onChange}
               className="bg-gray-70 border border-white/15"
               label={false}
+              icon={Image}
             />
           </div>
 

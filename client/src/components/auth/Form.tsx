@@ -1,6 +1,7 @@
-import { useState, type InputHTMLAttributes } from "react";
+import { useState, type ComponentType, type InputHTMLAttributes } from "react";
 import Input from "./Input";
 import { axiosInstace } from "../../utils/axiosInstance";
+import { Lock, Mail, User, type LucideProps } from "lucide-react";
 
 interface FormProps {
   type: "signup" | "login";
@@ -17,6 +18,7 @@ interface InputArr {
   name: string;
   placeholder?: string;
   value?: InputHTMLAttributes<HTMLInputElement>["value"];
+  icon: ComponentType<LucideProps>;
 }
 
 const Form = ({ type }: FormProps) => {
@@ -27,18 +29,6 @@ const Form = ({ type }: FormProps) => {
   });
 
   const inputs: InputArr[] = [
-    {
-      type: "email",
-      placeholder: "john@example.com",
-      name: "email",
-      value: data.email,
-    },
-    {
-      type: "password",
-      placeholder: "L@Dh*h2-nW>JPbG",
-      name: "password",
-      value: data.password,
-    },
     ...(type == "signup"
       ? [
           {
@@ -46,9 +36,24 @@ const Form = ({ type }: FormProps) => {
             placeholder: "John Doe",
             name: "name",
             value: data.name,
+            icon: User,
           },
         ]
       : []),
+    {
+      type: "email",
+      placeholder: "john@example.com",
+      name: "email",
+      value: data.email,
+      icon: Mail,
+    },
+    {
+      type: "password",
+      placeholder: "L@Dh*h2-nW>JPbG",
+      name: "password",
+      value: data.password,
+      icon: Lock,
+    },
   ];
 
   const onSubmitHandler = (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -88,11 +93,15 @@ const Form = ({ type }: FormProps) => {
 
   return (
     <form
-      className="border border-white/15 rounded-2xl shadow shadow-xl/30 shadow-secondary px-3 py-8 flex flex-col justify-center w-80 md:w-xl lg:w-2xl"
+      className="w-80 sm:w-105 md:w-130 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl shadow-secondary/20 px-8 py-10 flex flex-col"
       onSubmit={onSubmitHandler}
     >
-      <h1 className="self-center text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold">
-        {type == "signup" ? "Welcome on BrewCafe" : "Welcome Back on BrewCafe"}
+      <h1 className="text-center text-4xl font-bold text-white">
+        <p className="mt-2 mb-8 text-center text-gray-400">
+          {type === "signup"
+            ? "Create your account to continue"
+            : "Sign in to your account"}
+        </p>
       </h1>
       <hr className="w-full text-white/10 mb-5 mt-4" />
 
@@ -104,14 +113,15 @@ const Form = ({ type }: FormProps) => {
             placeholder={input.placeholder}
             value={input.value}
             onChange={onChangeHandler}
-            className="mx-1 my-2"
-            label={false}
+            className={`${input.type == "password" ? "tracking-wide font-medium" : ""}`}
+            label={true}
+            icon={input.icon}
           />
         );
       })}
       <button
         type="submit"
-        className="self-end relative z-0 rounded font-semibold text-gray-950 bg-secondary/90 px-10 py-3 transition-[all_0.3s_ease] after:absolute after:left-0 after:top-0 after:-z-10 after:h-full after:w-0 after:rounded after:bg-secondary cursor-pointer after:transition-[all_0.3s_ease]  hover:after:w-full mx-2 my-2 "
+        className="mt-4 w-full rounded-xl bg-secondary py-3 font-semibold text-black transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-secondary/40 active:scale-95"
       >
         {type == "signup" ? "Signup" : "Login"}
       </button>
