@@ -2,6 +2,7 @@ import { useState, type ComponentType, type InputHTMLAttributes } from "react";
 import Input from "./Input";
 import { axiosInstace } from "../../utils/axiosInstance";
 import { Lock, Mail, User, type LucideProps } from "lucide-react";
+import { Link } from "react-router";
 
 interface FormProps {
   type: "signup" | "login";
@@ -119,6 +120,31 @@ const Form = ({ type }: FormProps) => {
           />
         );
       })}
+      <div className="flex justify-center items-center text-gray-400 font-semibold">
+        {type == "signup" ? (
+          <p>
+            Already have an Account ?{" "}
+            <Link
+              to={"/cafe/auth/login"}
+              className="text-blue-300 hover:text-blue-400"
+            >
+              Login here
+            </Link>
+            .
+          </p>
+        ) : (
+          <p>
+            Don't have an Account ?{" "}
+            <Link
+              to={"/cafe/auth/signup"}
+              className="text-blue-300 hover:text-blue-400"
+            >
+              Sign Up
+            </Link>
+            .
+          </p>
+        )}
+      </div>
       <button
         type="submit"
         className="mt-4 w-full rounded-xl bg-secondary py-3 font-semibold text-black transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-secondary/40 active:scale-95"

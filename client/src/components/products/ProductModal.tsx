@@ -4,7 +4,6 @@ import { useProductModal } from "../../hooks/useProductModal";
 import type { ProductModalProps } from "../../types/products.types";
 import {
   Captions,
-  DollarSign,
   Image,
   IndianRupee,
   Layers,
