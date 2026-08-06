@@ -7,7 +7,8 @@ export const signup = async (
   req: Request<{}, {}, SignupReqBody>,
   res: Response,
 ) => {
-  const { name, email, password, phone } = req.body;
+  const { name, email, password, phone = undefined } = req.body;
+  console.log(req.body);
   valitadeReqBody({ type: "Signup", reqBody: req.body, res });
 
   const existingUser = await User.findOne({ email });
@@ -18,6 +19,7 @@ export const signup = async (
     });
 
   const user = await User.create({ name, email, password, phone });
+  console.log(user);
 
   return res.status(201).json({
     message: "User Created Successfully",
@@ -46,5 +48,6 @@ export const login = async (
 
   return res.status(200).json({
     message: "User Logged in Successfully",
+    user,
   });
 };

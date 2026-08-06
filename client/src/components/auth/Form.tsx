@@ -1,96 +1,13 @@
-import { useState, type ComponentType, type InputHTMLAttributes } from "react";
 import Input from "./Input";
-import { axiosInstace } from "../../utils/axiosInstance";
-import { Lock, Mail, User, type LucideProps } from "lucide-react";
 import { Link } from "react-router";
+import { useForm } from "../../hooks/useForm";
 
 interface FormProps {
   type: "signup" | "login";
 }
 
-interface Data {
-  name: string;
-  email: string;
-  password: string;
-}
-
-interface InputArr {
-  type: InputHTMLAttributes<HTMLInputElement>["type"];
-  name: string;
-  placeholder?: string;
-  value?: InputHTMLAttributes<HTMLInputElement>["value"];
-  icon: ComponentType<LucideProps>;
-}
-
 const Form = ({ type }: FormProps) => {
-  const [data, setData] = useState<Data>({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  const inputs: InputArr[] = [
-    ...(type == "signup"
-      ? [
-          {
-            type: "text",
-            placeholder: "John Doe",
-            name: "name",
-            value: data.name,
-            icon: User,
-          },
-        ]
-      : []),
-    {
-      type: "email",
-      placeholder: "john@example.com",
-      name: "email",
-      value: data.email,
-      icon: Mail,
-    },
-    {
-      type: "password",
-      placeholder: "L@Dh*h2-nW>JPbG",
-      name: "password",
-      value: data.password,
-      icon: Lock,
-    },
-  ];
-
-  const onSubmitHandler = (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (type == "login") {
-      console.log("login");
-      const { email, password } = data;
-      console.log(email, password);
-
-      axiosInstace
-        .post("/auth/login", { email, password })
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      axiosInstace
-        .post("/auth/signup", data)
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
-
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData((prevData) => {
-      return { ...prevData, [e.target.name]: e.target.value };
-    });
-  };
+  const { inputs, onSubmitHandler, onChangeHandler } = useForm(type);
 
   return (
     <form
@@ -106,9 +23,10 @@ const Form = ({ type }: FormProps) => {
       </h1>
       <hr className="w-full text-white/10 mb-5 mt-4" />
 
-      {inputs.map((input) => {
+      {inputs.map((input, idx) => {
         return (
           <Input
+            key={idx}
             type={input.type}
             name={input.name}
             placeholder={input.placeholder}
