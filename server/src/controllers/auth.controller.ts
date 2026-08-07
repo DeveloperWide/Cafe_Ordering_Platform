@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { LoginReqBody, SignupReqBody } from "../types/auth.types";
 import User from "../models/user.model";
 import { valitadeReqBody } from "../services/auth.services";
+import jwt from "jsonwebtoken";
+import { generateTokenAndSetCookie } from "../auth";
 
 export const signup = async (
   req: Request<{}, {}, SignupReqBody>,
@@ -19,7 +21,7 @@ export const signup = async (
     });
 
   const user = await User.create({ name, email, password, phone });
-  console.log(user);
+  generateTokenAndSetCookie(user._id, res);
 
   return res.status(201).json({
     message: "User Created Successfully",
@@ -45,6 +47,8 @@ export const login = async (
       message: "Wrong Credentials",
     });
   }
+
+  generateTokenAndSetCookie(user._id, res);
 
   return res.status(200).json({
     message: "User Logged in Successfully",
