@@ -21,3 +21,13 @@ export interface IUserDocument extends IUser, Document {
 
   comparePassword: (candidatePassword: string) => Promise<Boolean>;
 }
+
+export interface LoginReqBody {
+  email: string;
+  password: string;
+}
+export interface SignupReqBody {
+  name: string;
+  email: string;
+  password: string;
+}

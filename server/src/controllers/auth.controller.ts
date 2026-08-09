@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { LoginReqBody, SignupReqBody } from "../types/auth.types";
 import User from "../models/user.model";
 import { valitadeReqBody } from "../services/auth.services";
@@ -52,6 +52,18 @@ export const login = async (
 
   return res.status(200).json({
     message: "User Logged in Successfully",
+    user,
+  });
+};
+
+export const getMe = async (res: Response, req: Request) => {
+  const user = await User.findById(req.user);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not FOUND!" });
+  }
+
+  return res.status(200).json({
     user,
   });
 };
