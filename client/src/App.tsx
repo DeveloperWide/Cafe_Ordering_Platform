@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 
 import { Home, Main, Menu, Restaurants } from "./pages/index.ts";
 import Signup from "./pages/auth/Signup.tsx";
@@ -21,12 +21,13 @@ import type { RootState } from "./app/store.ts";
 function App() {
   const { refetch } = useAdminProducts();
   const products = useSelector((state: RootState) => state.product.products);
+  const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     refetch();
   }, []);
 
-  console.log(products);
+  console.log(user);
 
   return (
     <Routes>
@@ -42,7 +43,13 @@ function App() {
       </Route>
 
       {/* ADMIN Pages/Routes */}
-      <Route path="/admin" element={<Admin />}>
+
+      <Route
+        path="/admin"
+        element={
+          user.user?.role == "admin" ? <Admin /> : <Navigate to={"/cafe/"} />
+        }
+      >
         <Route index element={<Dashboard />} />
         <Route path="products" element={<AdminProducts />} />
         <Route path="orders" element={<Orders />} />
@@ -50,7 +57,17 @@ function App() {
 
       {/* for Users who have Account on BrewCafe */}
       {/* /, /products , /products/:productId */}
-      <Route path="/" element={<BrewCafe />}>
+
+      <Route
+        path="/"
+        element={
+          user.isAuthenticated ? (
+            <BrewCafe />
+          ) : (
+            <Navigate to={"/cafe/auth/login"} />
+          )
+        }
+      >
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />

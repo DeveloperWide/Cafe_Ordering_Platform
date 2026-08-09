@@ -1,6 +1,6 @@
 import { useState, type ComponentType, type InputHTMLAttributes } from "react";
 import { Lock, Mail, User, type LucideProps } from "lucide-react";
-import { loginUser, signupUser } from "../utils/auth.utils";
+import { useAuth } from "./useAuth";
 
 interface Data {
   name: string;
@@ -22,6 +22,8 @@ export const useForm = (type: "signup" | "login") => {
     email: "",
     password: "",
   });
+
+  const { login, signup } = useAuth();
 
   const inputs: InputArr[] = [
     ...(type == "signup"
@@ -56,9 +58,9 @@ export const useForm = (type: "signup" | "login") => {
     const { name, email, password } = data;
 
     if (type == "login") {
-      loginUser(email, password);
+      login(email, password);
     } else {
-      signupUser(name, email, password);
+      signup(name, email, password);
     }
   };
 
