@@ -6,7 +6,7 @@ export const generateTokenAndSetCookie = (
   userId: Types.ObjectId,
   res: Response,
 ) => {
-  const token = jwt.sign({ id: userId }, process.env.JWT_SECRET!, {
+  const token = jwt.sign({ id: userId.toString() }, process.env.JWT_SECRET!, {
     expiresIn: "7d",
   });
 
