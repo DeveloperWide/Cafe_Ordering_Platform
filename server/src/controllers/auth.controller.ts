@@ -56,8 +56,9 @@ export const login = async (
   });
 };
 
-export const getMe = async (res: Response, req: Request) => {
+export const getMe = async (req: Request, res: Response) => {
   const user = await User.findById(req.user);
+  console.log(user);
 
   if (!user) {
     return res.status(404).json({ message: "User not FOUND!" });

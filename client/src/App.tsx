@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 
 import { Home, Main, Menu, Restaurants } from "./pages/index.ts";
 import Signup from "./pages/auth/Signup.tsx";
@@ -15,19 +15,46 @@ import {
   Orders,
 } from "./pages/user/index.ts";
 import { useAdminProducts } from "./hooks/useAdminProducts.ts";
-import { useSelector } from "react-redux";
-import type { RootState } from "./app/store.ts";
+import { useDispatch } from "react-redux";
+import {
+  setError,
+  setLoading,
+  setUser,
+  logout,
+} from "./features/user/userSlice.ts";
+import { getMe } from "./services/auth.services.ts";
+import axios from "axios";
 
 function App() {
+  const dispatch = useDispatch();
   const { refetch } = useAdminProducts();
-  const products = useSelector((state: RootState) => state.product.products);
-  const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    refetch();
-  }, []);
+    const fetchUser = async () => {
+      try {
+        dispatch(setLoading(true));
+        dispatch(setError(null));
 
-  console.log(user);
+        const user = await getMe();
+
+        dispatch(setUser(user));
+      } catch (err) {
+        if (axios.isAxiosError(err) && err.response?.status === 401) {
+          dispatch(logout());
+        } else {
+          dispatch(
+            setError(
+              err instanceof Error ? err.message : "Something went Wrong",
+            ),
+          );
+        }
+      } finally {
+        dispatch(setLoading(false));
+      }
+    };
+    refetch();
+    fetchUser();
+  }, [dispatch]);
 
   return (
     <Routes>
@@ -44,12 +71,7 @@ function App() {
 
       {/* ADMIN Pages/Routes */}
 
-      <Route
-        path="/admin"
-        element={
-          user.user?.role == "admin" ? <Admin /> : <Navigate to={"/cafe/"} />
-        }
-      >
+      <Route path="/admin" element={<Admin />}>
         <Route index element={<Dashboard />} />
         <Route path="products" element={<AdminProducts />} />
         <Route path="orders" element={<Orders />} />
@@ -58,16 +80,7 @@ function App() {
       {/* for Users who have Account on BrewCafe */}
       {/* /, /products , /products/:productId */}
 
-      <Route
-        path="/"
-        element={
-          user.isAuthenticated ? (
-            <BrewCafe />
-          ) : (
-            <Navigate to={"/cafe/auth/login"} />
-          )
-        }
-      >
+      <Route element={<BrewCafe />}>
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />

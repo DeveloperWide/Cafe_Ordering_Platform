@@ -1,4 +1,5 @@
 import type { Response } from "../types/auth.types";
+import type { User } from "../types/user.types";
 import { axiosInstace } from "../utils/axiosInstance";
 
 export const loginUser = async (
@@ -31,6 +32,18 @@ export const signupUser = async (
     });
 
     return res.data as Response;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+export const getMe = async (): Promise<User | null> => {
+  try {
+    const res: Response = (await axiosInstace.get("/auth/me")).data;
+    console.log("Response : ", res);
+
+    return res.user as User;
   } catch (err) {
     console.log(err);
     return null;
