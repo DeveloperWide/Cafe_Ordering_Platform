@@ -12,7 +12,7 @@ function BrewCafe() {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to={"/products"} replace />;
+    return <Navigate to={"/cafe/auth/signup"} replace />;
   }
 
   return <Outlet />;

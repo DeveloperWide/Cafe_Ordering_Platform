@@ -56,6 +56,18 @@ export const login = async (
   });
 };
 
+export const logout = async (req: Request, res: Response) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  });
+
+  return res.status(201).json({
+    message: "User Logout Successfully.",
+  });
+};
+
 export const getMe = async (req: Request, res: Response) => {
   const user = await User.findById(req.user);
   console.log(user);

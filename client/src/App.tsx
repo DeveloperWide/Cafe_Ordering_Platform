@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 
 import { Home, Main, Menu, Restaurants } from "./pages/index.ts";
 import Signup from "./pages/auth/Signup.tsx";
@@ -17,10 +17,10 @@ import {
 import { useAdminProducts } from "./hooks/useAdminProducts.ts";
 import { useDispatch } from "react-redux";
 import {
+  logoutLocalUser,
   setError,
   setLoading,
   setUser,
-  logout,
 } from "./features/user/userSlice.ts";
 import { getMe } from "./services/auth.services.ts";
 import axios from "axios";
@@ -40,8 +40,10 @@ function App() {
         dispatch(setUser(user));
       } catch (err) {
         if (axios.isAxiosError(err) && err.response?.status === 401) {
-          dispatch(logout());
+          console.log("Unauthorized");
+          dispatch(logoutLocalUser());
         } else {
+          console.log("Error when fetching User");
           dispatch(
             setError(
               err instanceof Error ? err.message : "Something went Wrong",

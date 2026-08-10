@@ -38,6 +38,16 @@ export const signupUser = async (
   }
 };
 
+export const logoutUser = async (): Promise<void> => {
+  try {
+    const res = (await axiosInstace.post("/auth/logout")).data;
+
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const getMe = async (): Promise<User | null> => {
   try {
     const res: Response = (await axiosInstace.get("/auth/me")).data;
