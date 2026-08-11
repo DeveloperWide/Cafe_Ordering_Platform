@@ -15,7 +15,7 @@ import {
   Orders,
 } from "./pages/user/index.ts";
 import { useAdminProducts } from "./hooks/useAdminProducts.ts";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   logoutLocalUser,
   setError,
@@ -24,13 +24,22 @@ import {
 } from "./features/user/userSlice.ts";
 import { getMe } from "./services/auth.services.ts";
 import axios from "axios";
+import type { RootState } from "./app/store.ts";
 
 function App() {
   const dispatch = useDispatch();
   const { refetch } = useAdminProducts();
+  const { user, isAuthenticated } = useSelector(
+    (state: RootState) => state.user,
+  );
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   useEffect(() => {
     const fetchUser = async () => {
+      refetch();
       try {
         dispatch(setLoading(true));
         dispatch(setError(null));
@@ -54,9 +63,11 @@ function App() {
         dispatch(setLoading(false));
       }
     };
-    refetch();
+
     fetchUser();
   }, [dispatch]);
+
+  console.log(user, isAuthenticated);
 
   return (
     <Routes>

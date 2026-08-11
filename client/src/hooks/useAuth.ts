@@ -8,11 +8,14 @@ import {
 } from "../features/user/userSlice";
 import type { Response } from "../types/auth.types";
 import type { User } from "../types/user.types";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 export const useAuth = () => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const redirectionPath = location?.state;
 
   const login = async (email: string, password: string) => {
     try {
@@ -23,7 +26,10 @@ export const useAuth = () => {
       const user = data?.user as User;
 
       dispatch(setUser(user));
-      // navigate("/products");
+
+      return redirectionPath
+        ? navigate(`${redirectionPath}`)
+        : navigate("/products");
     } catch (err) {
       dispatch(
         setError(err instanceof Error ? err.message : "Something went Wrong"),
@@ -43,7 +49,9 @@ export const useAuth = () => {
       const user = data?.user as User;
 
       dispatch(setUser(user));
-      // navigate("/products");
+      return redirectionPath
+        ? navigate(`${redirectionPath}`)
+        : navigate("/products");
     } catch (err) {
       dispatch(
         setError(err instanceof Error ? err.message : "Something went Wrong"),
@@ -58,7 +66,9 @@ export const useAuth = () => {
       await logoutUser();
       dispatch(logoutLocalUser());
     } catch (err) {
-      console.log(err);
+      console.error(err);
+    } finally {
+      dispatch(logoutLocalUser());
     }
   };
 
