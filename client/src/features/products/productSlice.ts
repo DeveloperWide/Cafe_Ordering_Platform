@@ -4,10 +4,14 @@ import type { Product } from "../../types/products.types";
 
 export interface ProductsState {
   products: Product[];
+  isLoading: boolean;
+  error: string | null;
 }
 
 const initialState: ProductsState = {
   products: [],
+  isLoading: true,
+  error: null,
 };
 
 export const productSlice = createSlice({
@@ -20,6 +24,14 @@ export const productSlice = createSlice({
 
     addProduct: (state, action: PayloadAction<Product>) => {
       state.products.push(action.payload);
+    },
+
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
+
+    setError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
     },
 
     updateProduct: (state, action: PayloadAction<Product>) => {

@@ -2,10 +2,17 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../app/store";
 import ProductCard from "../../components/products/ProductCard";
 import { useAuth } from "../../hooks/useAuth";
+import { useEffect } from "react";
+import { useProducts } from "../../hooks/useProducts";
 
 const Products = () => {
   const products = useSelector((state: RootState) => state.product.products);
   const { logout } = useAuth();
+  const { refetch } = useProducts();
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gapy-y-7 m-10">

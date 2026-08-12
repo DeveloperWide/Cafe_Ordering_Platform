@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 
 import { Home, Main, Menu, Restaurants } from "./pages/index.ts";
 import Signup from "./pages/auth/Signup.tsx";
@@ -14,7 +14,6 @@ import {
   Dashboard,
   Orders,
 } from "./pages/user/index.ts";
-import { useAdminProducts } from "./hooks/useAdminProducts.ts";
 import { useDispatch, useSelector } from "react-redux";
 import {
   logoutLocalUser,
@@ -28,24 +27,19 @@ import type { RootState } from "./app/store.ts";
 
 function App() {
   const dispatch = useDispatch();
-  const { refetch } = useAdminProducts();
   const { user, isAuthenticated } = useSelector(
     (state: RootState) => state.user,
   );
 
   useEffect(() => {
-    refetch();
-  }, []);
-
-  useEffect(() => {
     const fetchUser = async () => {
-      refetch();
       try {
         dispatch(setLoading(true));
         dispatch(setError(null));
 
         const user = await getMe();
 
+        if (!user) return;
         dispatch(setUser(user));
       } catch (err) {
         if (axios.isAxiosError(err) && err.response?.status === 401) {

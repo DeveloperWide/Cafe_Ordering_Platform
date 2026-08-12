@@ -63,7 +63,9 @@ export const useAuth = () => {
 
   const logout = async () => {
     try {
-      await logoutUser();
+      const data = await logoutUser();
+      console.log(data);
+
       dispatch(logoutLocalUser());
     } catch (err) {
       console.error(err);

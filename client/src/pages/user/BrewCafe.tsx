@@ -17,7 +17,7 @@ function BrewCafe() {
     return <div>Loading...</div>;
   }
 
-  if (user == null) {
+  if (!isAuthenticated) {
     return <Navigate to={"/cafe/auth/login"} replace state={from} />;
   }
 

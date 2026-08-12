@@ -1,12 +1,15 @@
 import { Pencil, Plus, Trash } from "lucide-react";
 import ProductModal from "../../components/products/ProductModal";
 import { deleteProduct } from "../../services/produts.services";
-import { useAdminProducts } from "../../hooks/useAdminProducts";
+import { useAdminModal } from "../../hooks/useAdminModal";
 import { useNavigate } from "react-router";
+import { useProducts } from "../../hooks/useProducts";
 
 const AdminProducts = () => {
-  const { products, modal, openCreateModal, openUpdateModal, closeModal } =
-    useAdminProducts();
+  const { modal, openCreateModal, openUpdateModal, closeModal } =
+    useAdminModal();
+  const { products } = useProducts();
+
   const navigate = useNavigate();
   return (
     <div>
