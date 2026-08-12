@@ -20,7 +20,19 @@ const initDb = async () => {
   );
 
   const svdUsers = await User.insertMany(hashUsers);
-  console.log(svdUsers);
 };
 
-initDb();
+const insertAdmin = async () => {
+  await connectDB();
+
+  const admin = await User.create({
+    name: "Mahesh Rana",
+    email: "maheahrana9520@gmail.com",
+    password: "mahesh@mahesh",
+    role: "admin",
+  });
+
+  console.log(admin);
+};
+
+insertAdmin();
