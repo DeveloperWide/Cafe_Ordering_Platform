@@ -90,13 +90,11 @@ export const useProductModal = ({
     }
 
     if (type == "create") {
-      const product = await createProduct(formData);
+      const product = await createProduct(formData, onClose);
 
       if (product == null) {
         return;
       }
-
-      // onClose(!open);
 
       setProductData(intialData);
       setFile(null);
@@ -104,6 +102,7 @@ export const useProductModal = ({
       dispatch(addProduct(product));
     } else if (data) {
       updateProduct(data._id, formData);
+      // dispatch(updateProduct(data._id, formData));
     }
   };
 

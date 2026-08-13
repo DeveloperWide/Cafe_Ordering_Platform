@@ -1,4 +1,3 @@
-import type React from "react";
 import type { Product } from "../types/products.types";
 import { axiosInstace } from "../utils/axiosInstance";
 
@@ -16,9 +15,15 @@ export const getProducts = async (): Promise<Product[]> => {
 
 export const createProduct = async (
   formData: FormData,
+  onClose: () => void,
 ): Promise<Product | null> => {
   try {
     const res = await axiosInstace.post("/product/", formData);
+
+    if (res.status >= 200 && res.status < 300) {
+      onClose();
+    }
+
     const data: Product = res.data.data;
 
     return data;
